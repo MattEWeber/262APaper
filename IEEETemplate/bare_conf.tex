@@ -352,28 +352,27 @@
 %
 % paper title
 % can use linebreaks \\ within to get better formatting as desired
-\title{Bare Demo of IEEEtran.cls for Conferences}
+\title{Tribune: An Externally Consistent Database Common Access API for the Global Data Plane}
 
 
 % author names and affiliations
 % use a multiple column layout for up to three different
 % affiliations
-\author{\IEEEauthorblockN{Michael Shell}
-\IEEEauthorblockA{School of Electrical and\\Computer Engineering\\
-Georgia Institute of Technology\\
-Atlanta, Georgia 30332--0250\\
-Email: http://www.michaelshell.org/contact.html}
-\and
-\IEEEauthorblockN{Homer Simpson}
-\IEEEauthorblockA{Twentieth Century Fox\\
-Springfield, USA\\
-Email: homer@thesimpsons.com}
-\and
-\IEEEauthorblockN{James Kirk\\ and Montgomery Scott}
-\IEEEauthorblockA{Starfleet Academy\\
-San Francisco, California 96678-2391\\
-Telephone: (800) 555--1212\\
-Fax: (888) 555--1212}}
+\author{\IEEEauthorblockN{Matt Weber, Shiyun Huang and Lawrence Supian}
+\IEEEauthorblockA{Department of Electrical Engineering and Computer Sciences (EECS) \\
+University of California, Berkeley\\
+Email: matt.weber, jane.huang, lsupian@berkeley.edu}}
+%\and
+%\IEEEauthorblockN{Homer Simpson}
+%\IEEEauthorblockA{Twentieth Century Fox\\
+%Springfield, USA\\
+%Email: homer@thesimpsons.com}
+%\and
+%\IEEEauthorblockN{James Kirk\\ and Montgomery Scott}
+%\IEEEauthorblockA{Starfleet Academy\\
+%San Francisco, California 96678-2391\\
+%Telephone: (800) 555--1212\\
+%Fax: (888) 555--1212}}
 
 % conference papers do not typically use \thanks and this command
 % is locked out in conference mode. If really needed, such as for
@@ -412,7 +411,7 @@ Fax: (888) 555--1212}}
 
 \begin{abstract}
 %\boldmath
-The abstract goes here.
+	The Global Data Plane (GDP) is a distributed data storage system with the objective of providing persistent data storage to devices in the internet of things. The GDP has a variety of useful properties including data security, a flat namespace, and location independent routing, that improve the availability and efficiency of universal data storage. As a key component in the Terraswarm project and the SwarmOS, the GDP provides log based storage and routing between sensors and actuators embedded in the physical world. Logs are the fundamental primitive of the GDP, but some CAAPIs (a Common Access Application Programming Interface) require stronger semantics. In this project we will construct a transaction manager that implements Google Spanner-like external consistency semantics for multi-writer logs in the GDP‘s distributed environment. We compare the trusted Paxos based replication scheme used by Google Spanner to an optimistic concurrency based technique that is compatible with attack tolerant Byzantine Agreement replication. Our long term goal is to provide Ptides style deterministic execution and sensor-to-actuator timing guarantees for swarmlets in the SwarmOS that choose to access time-aware multi-writer logs.
 \end{abstract}
 % IEEEtran.cls defaults to using nonbold math in the Abstract.
 % This preserves the distinction between vectors and scalars. However,
@@ -440,24 +439,48 @@ The abstract goes here.
 
 \section{Introduction}
 % no \IEEEPARstart
-This demo file is intended to serve as a ``starter file''
-for IEEE conference papers produced under \LaTeX\ using
-IEEEtran.cls version 1.7 and later.
 % You must have at least 2 lines in the paragraph with the drop letter
 % (should never be an issue)
-I wish you the best of success.
+%\hfill mds
+ %\hfill January 11, 2007
 
-\hfill mds
- 
-\hfill January 11, 2007
-
-\subsection{Subsection Heading Here}
-Subsection text here.
+Section II gives an overview of the system architecture and design. Section III goes into the implementation details of several crucial algorithms. Section IV elaborates on our test environment setup and the benchmark results. Section V gives the conclusion and addresses the direction of future work.
 
 
-\subsubsection{Subsubsection Heading Here}
+%\subsection{Subsection Heading Here}
+%Subsection text here.
+
+
+%\subsubsection{Subsubsection Heading Here}
+%Subsubsection text here.
+
+\section{System Architecture}
+Our first design of system emulates a simplified version of Google Spanner without any "distributed transaction". Because we opt not to handle "distributed transactions", we do not implement the transaction manager which coordinates two phase commits between different Paxos groups. Our first design of system assumes an one-paxos-group environment so we only implement the lock manager at the leader replica.
+
+The responder receives transactions from client applications. It parses each operation line by line and acquires read locks for all data required for the transaction. The responder buffers writes locally. When all the transaction operation finishes, the responder tries to acquire write locks for the locally modified data. If the attempt turns out successful, the responder will try to commit the transaction at the leader. 
+
+We only implement the necessary components for read-write transactions. So all transactions would go through the leader replica to validate their respective lock leases before committing via paxos protocol. If the validation is successful, the leader would go through all paxos phases and return the final transaction status (abort or commit) back to responder. The responder will return the transaction status back to client apps.
+
+Below is a diagram for the overall architecture:
+
+//then talk about modifications on the first version to incorporate optimistic concurrency control and byzantine agreement
+
+
+\section{Algorithms and Implementation}
+Implementation details goes here.
+Spanner uses Paxos 
+
+\subsection{Lock Manger Details}
 Subsubsection text here.
 
+\subsection{Optimistic Concurrency Control}
+Subsubsection text here.
+
+\subsection{Pseudo Paxos vs Pseudo Byzantine Agreement}
+Subsubsection text here.
+
+\section{Experiments and Results}
+Subsubsection text here.
 
 % An example of a floating figure using the graphicx package.
 % Note that \label must occur AFTER (or within) \caption.
@@ -543,7 +566,7 @@ Subsubsection text here.
 
 
 
-\section{Conclusion}
+\section{Conclusion and Future Work}
 The conclusion goes here.
 
 
