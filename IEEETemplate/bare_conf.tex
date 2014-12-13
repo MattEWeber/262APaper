@@ -455,7 +455,7 @@ Section II gives an overview of the system architecture and design. Section III 
 %Subsubsection text here.
 
 \section{System Architecture}
-Our first design of system emulates a simplified version of Google Spanner without any "distributed transaction". Because we opt not to handle "distributed transactions", we do not implement the transaction manager which coordinates two phase commits between different Paxos groups. Our first design of system assumes an one-paxos-group environment so we only implement the lock manager at the leader replica.
+Our first design of system emulates a simplified version of Google Spanner without any \textbf{ "distributed transaction"}. Because we opt not to handle \textbf{"distributed transactions"}, we do not implement the transaction manager which coordinates two phase commits between different Paxos groups. Our first design of system assumes an one-paxos-group environment so we only implement the lock manager at the leader replica.
 
 The responder receives transactions from client applications. It parses each operation line by line and acquires read locks for all data required for the transaction. The responder buffers writes locally. When all the transaction operation finishes, the responder tries to acquire write locks for the locally modified data. If the attempt turns out successful, the responder will try to commit the transaction at the leader. 
 
@@ -467,10 +467,9 @@ Below is a diagram for the overall architecture:
 
 
 \section{Algorithms and Implementation}
-Implementation details goes here.
-Spanner uses Paxos 
+In this section, we're going to elaborate on the algorithmic part of the project, which is our choices of concurrency control protocol and commit consensus protocol. We did strict two-phase locking and optimistic concurrency for concurrency control. We also did paxos and byzantine agreement for commit consensus protocol. We would explain in detail how we implement four algorithms in our project and compare the tradeoffs in this section. The benchmark results would be in the next section.
 
-\subsection{Lock Manger Details}
+\subsection{Strict Two-Phase Locking}
 Subsubsection text here.
 
 \subsection{Optimistic Concurrency Control}
