@@ -1,5 +1,12 @@
 \begin{thebibliography}{10}
 
+\bibitem{baker_megastore:_2011}
+J.~Baker, C.~Bond, J.~C. Corbett, J.~J. Furman, A.~Khorlin, J.~Larson, J.-M.
+  Léon, Y.~Li, A.~Lloyd, and V.~Yushprakh.
+\newblock Megastore: Providing scalable, highly available storage for
+  interactive services.
+\newblock In {\em {CIDR}}, volume~11, pages 223--234, 2011.
+
 \bibitem{Reed-Solomon}
 J.~Blömer, M.~Kalfane, R.~Karp, M.~Karpinski, M.~Luby, and D.~Zuckerman.
 \newblock An xor-based erasure-resilient coding scheme, 1995.
@@ -9,6 +16,12 @@ T.~D. Chandra, R.~Griesemer, and J.~Redstone.
 \newblock Paxos made live: an engineering perspective.
 \newblock In {\em Proceedings of the twenty-sixth annual {ACM} symposium on
   Principles of distributed computing}, pages 398--407. {ACM}, 2007.
+
+\bibitem{chang_bigtable:_2008}
+F.~Chang, J.~Dean, S.~Ghemawat, W.~C. Hsieh, D.~A. Wallach, M.~Burrows,
+  T.~Chandra, A.~Fikes, and R.~E. Gruber.
+\newblock Bigtable: A distributed storage system for structured data.
+\newblock {\em {ACM} Transactions on Computer Systems ({TOCS})}, 26(2):4, 2008.
 
 \bibitem{corbett_spanner:_2012}
 J.~C. Corbett, J.~Dean, M.~Epstein, A.~Fikes, C.~Frost, J.~J. Furman,
@@ -99,6 +112,11 @@ I.~Stoica, R.~Morris, D.~Liben-Nowell, D.~R. Karger, M.~F. Kaashoek, F.~Dabek,
 \newblock Chord: a scalable peer-to-peer lookup protocol for internet
   applications.
 \newblock {\em Networking, {IEEE}/{ACM} Transactions on}, 11(1):17--32, 2003.
+
+\bibitem{weatherspoon_antiquity:_2007}
+H.~Weatherspoon, P.~Eaton, B.-G. Chun, and J.~Kubiatowicz.
+\newblock Antiquity: exploiting a secure log for wide-area distributed storage.
+\newblock {\em {ACM} {SIGOPS} Operating Systems Review}, 41(3):371--384, 2007.
 
 \bibitem{zhao_tapestry_2004}
 B.~Zhao, L.~Huang, J.~Stribling, S.~Rhea, A.~Joseph, and J.~Kubiatowicz.
