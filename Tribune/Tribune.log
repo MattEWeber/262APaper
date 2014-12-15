@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.15 (TeX Live 2014) (preloaded format=pdflatex 2014.6.20)  15 DEC 2014 14:49
+This is pdfTeX, Version 3.14159265-2.6-1.40.15 (TeX Live 2014) (preloaded format=pdflatex 2014.6.20)  15 DEC 2014 15:49
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -224,7 +224,7 @@ Package color Info: Driver file: pdftex.def on input line 137.
 (/usr/local/texlive/2014/texmf-dist/tex/latex/listings/lstlang1.sty
 File: lstlang1.sty 2014/03/04 1.5c listings language file
 )
-No file Tribune.aux.
+(./Tribune.aux)
 \openout1 = `Tribune.aux'.
 
 LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 34.
@@ -242,10 +242,9 @@ LaTeX Font Info:    ... okay on input line 34.
 LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 34.
 LaTeX Font Info:    ... okay on input line 34.
 LaTeX Font Info:    Try loading font information for OT1+ptm on input line 34.
-(/usr/local/texlive/2014/texmf-dist/tex/latex/psnfss/ot1ptm.fd
+ (/usr/local/texlive/2014/texmf-dist/tex/latex/psnfss/ot1ptm.fd
 File: ot1ptm.fd 2001/06/04 font definitions for OT1/ptm.
-)
-(/usr/local/texlive/2014/texmf-dist/tex/context/base/supp-pdf.mkii
+) (/usr/local/texlive/2014/texmf-dist/tex/context/base/supp-pdf.mkii
 [Loading MPS to PDF converter (version 2006.09.02).]
 \scratchcounter=\count106
 \scratchdimen=\dimen113
@@ -287,6 +286,8 @@ Package: gettitlestring 2010/12/03 v1.4 Cleanup title references (HO)
 LaTeX Info: Redefining \ref on input line 34.
 LaTeX Info: Redefining \pageref on input line 34.
 LaTeX Info: Redefining \nameref on input line 34.
+
+(./Tribune.out) (./Tribune.out)
 \@outlinefile=\write3
 \openout3 = `Tribune.out'.
 
@@ -305,30 +306,8 @@ File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 )
 LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <12> not available
 (Font)              Font shape `OT1/ptm/b/n' tried instead on input line 48.
-LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <10> not available
-(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 53.
 
-
-LaTeX Warning: Citation `lee_terraswarm_2012' on page 1 undefined on input line
- 53.
-
-
-LaTeX Warning: Citation `rabaey_swarm_2011' on page 1 undefined on input line 5
-3.
-
-
-LaTeX Warning: Citation `DabbeltKubiatowicz13_CaseForUniversalDataPlane' on pag
-e 1 undefined on input line 53.
-
-
-LaTeX Warning: Citation `Kubiatowicz14_EnablingSwarmThroughGlobalDataPlane' on 
-page 1 undefined on input line 55.
-
-
-LaTeX Warning: Citation `rhea_pond:_2003' on page 1 undefined on input line 55.
-
-
-<Images/Database_CAAPI.png, id=4, 892.33376pt x 513.92pt>
+<Images/Database_CAAPI.png, id=101, 892.33376pt x 513.92pt>
 File: Images/Database_CAAPI.png Graphic file (type png)
 
 <use Images/Database_CAAPI.png>
@@ -339,25 +318,11 @@ Overfull \hbox (15.80905pt too wide) in paragraph at lines 60--61
  [] 
  []
 
-LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <9> not available
-(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 63.
-
-LaTeX Warning: Citation `Kubiatowicz14_EnablingSwarmThroughGlobalDataPlane' on 
-page 1 undefined on input line 63.
-
-
-LaTeX Warning: Citation `Kubiatowicz14_EnablingSwarmThroughGlobalDataPlane' on 
-page 1 undefined on input line 63.
-
-
-LaTeX Warning: Reference `Database_CAAPI' on page 1 undefined on input line 67.
-
-
 [1{/usr/local/texlive/2014/texmf-var/fonts/map/pdftex/updmap/pdftex.map}
 
 
 ]
-<Images/TrueTime.png, id=14, 316.18124pt x 98.3675pt>
+<Images/TrueTime.png, id=119, 316.18124pt x 98.3675pt>
 File: Images/TrueTime.png Graphic file (type png)
 
 <use Images/TrueTime.png>
@@ -368,15 +333,7 @@ Overfull \hbox (15.80905pt too wide) in paragraph at lines 74--76
  [] 
  []
 
-
-LaTeX Warning: Citation `corbett_spanner:_2012' on page 2 undefined on input li
-ne 78.
-
-
-LaTeX Warning: Citation `corbett_spanner:_2012' on page 2 undefined on input li
-ne 78.
-
-<Images/Spanner_Arch.png, id=15, 308.15125pt x 248.93pt>
+<Images/Spanner_Arch.png, id=122, 308.15125pt x 248.93pt>
 File: Images/Spanner_Arch.png Graphic file (type png)
 
 <use Images/Spanner_Arch.png>
@@ -388,97 +345,12 @@ Overfull \hbox (15.80905pt too wide) in paragraph at lines 86--87
  []
 
 
-LaTeX Warning: Citation `corbett_spanner:_2012' on page 2 undefined on input li
-ne 89.
-
-
-LaTeX Warning: Citation `corbett_spanner:_2012' on page 2 undefined on input li
-ne 89.
-
-
-LaTeX Warning: Citation `corbett_spanner:_2012' on page 2 undefined on input li
-ne 95.
-
-
-LaTeX Warning: Reference `TrueTime' on page 2 undefined on input line 95.
-
-
-LaTeX Warning: Reference `Spanner_Arch' on page 2 undefined on input line 97.
-
-
-LaTeX Warning: Citation `chandra_paxos_2007' on page 2 undefined on input line 
-97.
-
-
-LaTeX Warning: Citation `baker_megastore:_2011' on page 2 undefined on input li
-ne 97.
-
-
-LaTeX Warning: Citation `chang_bigtable:_2008' on page 2 undefined on input lin
-e 97.
-
-
-LaTeX Warning: Citation `wound_wait' on page 2 undefined on input line 97.
-
-
 Underfull \hbox (badness 1430) in paragraph at lines 97--98
 \OT1/ptm/m/n/10 shares com-po-nents and ter-mi-nol-ogy with Chubby [[]],
  []
 
 [2 <./Images/Database_CAAPI.png> <./Images/TrueTime.png> <./Images/Spanner_Arch
-.png>]
-
-LaTeX Warning: Citation `ratzel_toward_2012' on page 3 undefined on input line 
-103.
-
-
-LaTeX Warning: Citation `lamport_time_1978' on page 3 undefined on input line 1
-03.
-
-
-LaTeX Warning: Citation `Lamport_paxos' on page 3 undefined on input line 108.
-
-
-LaTeX Warning: Citation `lamport_byzantine_1982' on page 3 undefined on input l
-ine 108.
-
-
-Underfull \hbox (badness 1320) in paragraph at lines 108--109
-\OT1/ptm/m/n/10 an un-am-bigu-ous his-tory across dis-tributed, faulty ma-
- []
-
-
-LaTeX Warning: Citation `weatherspoon_antiquity:_2007' on page 3 undefined on i
-nput line 112.
-
-
-LaTeX Warning: Citation `Reed-Solomon' on page 3 undefined on input line 112.
-
-
-LaTeX Warning: Citation `rhea_pond:_2003' on page 3 undefined on input line 112
-.
-
-
-LaTeX Warning: Citation `mohan_aries:_1992' on page 3 undefined on input line 1
-14.
-
-
-LaTeX Warning: Citation `sears_segment-based_2009' on page 3 undefined on input
- line 114.
-
-
-LaTeX Warning: Citation `zhao_tapestry_2004' on page 3 undefined on input line 
-117.
-
-
-LaTeX Warning: Citation `stoica_chord:_2003' on page 3 undefined on input line 
-117.
-
-
-LaTeX Warning: Citation `rhea_handling_2003' on page 3 undefined on input line 
-117.
-
-<Images/Tribune_Arch.png, id=25, 449.68pt x 216.81pt>
+.png>] <Images/Tribune_Arch.png, id=156, 449.68pt x 216.81pt>
 File: Images/Tribune_Arch.png Graphic file (type png)
 
 <use Images/Tribune_Arch.png>
@@ -489,19 +361,11 @@ Overfull \hbox (15.80905pt too wide) in paragraph at lines 121--122
  [] 
  []
 
+LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <10> not available
+(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 132.
 [3 <./Images/Tribune_Arch.png>]
-
-LaTeX Warning: Reference `Tribune_Arch' on page 4 undefined on input line 153.
-
-
-LaTeX Warning: Citation `Pitt:2001:JRM:558733' on page 4 undefined on input lin
-e 153.
-
-
-LaTeX Warning: Citation `welsh_seda:_2001' on page 4 undefined on input line 15
-5.
-
 LaTeX Font Info:    Try loading font information for OML+ptm on input line 157.
+
 
 (/usr/local/texlive/2014/texmf-dist/tex/latex/psnfss/omlptm.fd
 File: omlptm.fd 
@@ -513,80 +377,86 @@ LaTeX Font Info:    Try loading font information for OT1+pcr on input line 162.
 
 (/usr/local/texlive/2014/texmf-dist/tex/latex/psnfss/ot1pcr.fd
 File: ot1pcr.fd 2001/06/04 font definitions for OT1/pcr.
-)
+) [4]
+<Images/test-setup.png, id=197, 503.8825pt x 345.29pt>
+File: Images/test-setup.png Graphic file (type png)
 
-LaTeX Warning: Citation `chandra_paxos_2007' on page 4 undefined on input line 
-180.
+<use Images/test-setup.png>
+Package pdftex.def Info: Images/test-setup.png used on input line 209.
+(pdftex.def)             Requested size: 252.94499pt x 173.33476pt.
 
-[4]
+Overfull \hbox (15.80905pt too wide) in paragraph at lines 209--210
+ [] 
+ []
 
-LaTeX Warning: Citation `ongaro_search_2014' on page 5 undefined on input line 
-182.
-
-<Images/1-time.png, id=59, 978.65625pt x 566.115pt>
+<Images/1-time.png, id=198, 978.65625pt x 566.115pt>
 File: Images/1-time.png Graphic file (type png)
  <use Images/1-time.png>
-Package pdftex.def Info: Images/1-time.png used on input line 192.
+Package pdftex.def Info: Images/1-time.png used on input line 219.
 (pdftex.def)             Requested size: 252.94499pt x 146.31396pt.
-
-Overfull \hbox (15.80905pt too wide) in paragraph at lines 192--193
- [] 
- []
-
-<Images/1-commit.png, id=60, 960.58875pt x 574.145pt>
-File: Images/1-commit.png Graphic file (type png)
-
-<use Images/1-commit.png>
-Package pdftex.def Info: Images/1-commit.png used on input line 201.
-(pdftex.def)             Requested size: 252.94499pt x 151.18402pt.
-
-Overfull \hbox (15.80905pt too wide) in paragraph at lines 201--202
- [] 
- []
-
-<Images/2-time.png, id=61, 942.52126pt x 547.04375pt>
-File: Images/2-time.png Graphic file (type png)
- <use Images/2-time.png>
-Package pdftex.def Info: Images/2-time.png used on input line 210.
-(pdftex.def)             Requested size: 252.94499pt x 146.81062pt.
-
-Overfull \hbox (15.80905pt too wide) in paragraph at lines 210--211
- [] 
- []
-
-<Images/2-commit.png, id=62, 926.46124pt x 505.89pt>
-File: Images/2-commit.png Graphic file (type png)
- <use Images/2-commit.png>
-Package pdftex.def Info: Images/2-commit.png used on input line 219.
-(pdftex.def)             Requested size: 252.94499pt x 138.11281pt.
 
 Overfull \hbox (15.80905pt too wide) in paragraph at lines 219--220
  [] 
  []
 
-<Images/3-time.png, id=63, 918.43124pt x 522.95375pt>
-File: Images/3-time.png Graphic file (type png)
- <use Images/3-time.png>
-Package pdftex.def Info: Images/3-time.png used on input line 228.
-(pdftex.def)             Requested size: 252.94499pt x 144.02419pt.
+<Images/1-commit.png, id=199, 960.58875pt x 574.145pt>
+File: Images/1-commit.png Graphic file (type png)
+
+<use Images/1-commit.png>
+Package pdftex.def Info: Images/1-commit.png used on input line 228.
+(pdftex.def)             Requested size: 252.94499pt x 151.18402pt.
 
 Overfull \hbox (15.80905pt too wide) in paragraph at lines 228--229
  [] 
  []
 
+<Images/2-time.png, id=200, 942.52126pt x 547.04375pt>
+File: Images/2-time.png Graphic file (type png)
+ <use Images/2-time.png>
+Package pdftex.def Info: Images/2-time.png used on input line 237.
+(pdftex.def)             Requested size: 252.94499pt x 146.81062pt.
 
-LaTeX Warning: Citation `zou_execution_2009' on page 5 undefined on input line 
-240.
+Overfull \hbox (15.80905pt too wide) in paragraph at lines 237--238
+ [] 
+ []
+
+<Images/2-commit.png, id=201, 926.46124pt x 505.89pt>
+File: Images/2-commit.png Graphic file (type png)
+
+<use Images/2-commit.png>
+Package pdftex.def Info: Images/2-commit.png used on input line 246.
+(pdftex.def)             Requested size: 252.94499pt x 138.11281pt.
+
+Overfull \hbox (15.80905pt too wide) in paragraph at lines 246--247
+ [] 
+ []
+
+<Images/3-time.png, id=202, 918.43124pt x 522.95375pt>
+File: Images/3-time.png Graphic file (type png)
+ <use Images/3-time.png>
+Package pdftex.def Info: Images/3-time.png used on input line 255.
+(pdftex.def)             Requested size: 252.94499pt x 144.02419pt.
+
+Overfull \hbox (15.80905pt too wide) in paragraph at lines 255--256
+ [] 
+ []
 
 
-Underfull \hbox (badness 1776) in paragraph at lines 242--243
+Underfull \vbox (badness 2781) has occurred while \output is active []
+
+ [5 <./Images/test-setup.png> <./Images/1-time.png>]
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+
+Underfull \hbox (badness 1776) in paragraph at lines 271--273
 []\OT1/ptm/m/n/10 Reconsidering our im-ple-men-ta-tion choices now the
  []
 
-[5 <./Images/1-time.png> <./Images/1-commit.png> <./Images/2-time.png> <./Image
-s/2-commit.png>] (./Tribune.bbl
+(./Tribune.bbl
 Missing character: There is no Ã in font ptmr7t!
 Missing character: There is no © in font ptmr7t!
+ [6 <./Images/1-commit.png> <./Images/2-time.png> <./Images/2-commit.png> <./Im
+ages/3-time.png>]
 Missing character: There is no Ã in font ptmr7t!
 Missing character: There is no ¶ in font ptmr7t!
 
@@ -603,38 +473,25 @@ Underfull \hbox (badness 1721) in paragraph at lines 105--108
 OT1/ptm/m/n/10 ,
  []
 
-[6 <./Images/3-time.png>])
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 257.
- [7
+[7])
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 287.
+ [8
 
 ]
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 257.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 287.
  (./Tribune.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 257.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 257.
-
-
-Package rerunfilecheck Warning: File `Tribune.out' has changed.
-(rerunfilecheck)                Rerun to get outlines right
-(rerunfilecheck)                or use package `bookmark'.
-
-Package rerunfilecheck Info: Checksums for `Tribune.out':
-(rerunfilecheck)             Before: <no file>
-(rerunfilecheck)             After:  11B65C4DC84930F93B40736975935DE9;1192.
-
-LaTeX Warning: There were undefined references.
-
-
-LaTeX Warning: Label(s) may have changed. Rerun to get cross-references right.
-
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 257.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 287.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 287.
+Package rerunfilecheck Info: File `Tribune.out' has not changed.
+(rerunfilecheck)             Checksum: AEAB3126AA15A18838A5496413C6816C;1466.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 287.
  ) 
 Here is how much of TeX's memory you used:
- 6957 strings out of 493117
- 103017 string characters out of 6135439
+ 7006 strings out of 493117
+ 103686 string characters out of 6135439
  218092 words of memory out of 5000000
- 10256 multiletter control sequences out of 15000+600000
- 25652 words of font info for 55 fonts, out of 8000000 for 9000
+ 10291 multiletter control sequences out of 15000+600000
+ 25725 words of font info for 61 fonts, out of 8000000 for 9000
  1144 hyphenation exceptions out of 8191
  29i,8n,40p,1345b,1040s stack positions out of 5000i,500n,10000p,200000b,80000s
 {/usr/local/texlive/2014/texmf-dist/fonts/enc/dvips/base/8r.enc}</usr/local/t
@@ -644,10 +501,10 @@ xlive/2014/texmf-dist/fonts/type1/urw/courier/ucrr8a.pfb></usr/local/texlive/20
 f-dist/fonts/type1/urw/times/utmb8a.pfb></usr/local/texlive/2014/texmf-dist/fon
 ts/type1/urw/times/utmr8a.pfb></usr/local/texlive/2014/texmf-dist/fonts/type1/u
 rw/times/utmri8a.pfb>
-Output written on Tribune.pdf (7 pages, 3438397 bytes).
+Output written on Tribune.pdf (8 pages, 3636468 bytes).
 PDF statistics:
- 152 PDF objects out of 1000 (max. 8388607)
- 126 compressed objects within 2 object streams
- 72 named destinations out of 1000 (max. 500000)
- 46 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 272 PDF objects out of 1000 (max. 8388607)
+ 240 compressed objects within 3 object streams
+ 78 named destinations out of 1000 (max. 500000)
+ 235 words of extra memory for PDF output out of 10000 (max. 10000000)
 
