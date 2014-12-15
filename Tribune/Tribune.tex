@@ -172,7 +172,6 @@ public class Hello extends JApplet {
 \end{lstlisting}
 
 \subsection{Optimistic Concurrency Control}
-Subsubsection text here.
 
 \subsection{Initialization}
 
@@ -186,7 +185,55 @@ We implement the
 \subsection{Remote Method Invocation}
 
 \section{Experiments and Results}
-Subsubsection text here.
+\textbf{Mention the log scale on the last time graph. Also mention that the commit rate for the third test is 100 percent }
+
+\begin{figure}[!b]
+  \begin{center}
+    \includegraphics[width=3.5in]{Images/1-time.png}
+  \end{center}
+
+  \caption{\small High Conflict Rate: Committing Transaction Execution Time }
+  \label{1-time}
+\end{figure}
+
+\begin{figure}[!b]
+  \begin{center}
+    \includegraphics[width=3.5in]{Images/1-commit.png}
+  \end{center}
+
+  \caption{\small High Conflict Rate: Commit Percentage }
+  \label{1-commit}
+\end{figure}
+
+\begin{figure}[!b]
+  \begin{center}
+    \includegraphics[width=3.5in]{Images/2-time.png}
+  \end{center}
+
+  \caption{\small Bank Application: Committing Transaction Execution Time }
+  \label{2-time}
+\end{figure}
+
+\begin{figure}[!b]
+  \begin{center}
+    \includegraphics[width=3.5in]{Images/2-commit.png}
+  \end{center}
+
+  \caption{\small Bank Application: Commit Percentage }
+  \label{2-commit}
+\end{figure}
+
+\begin{figure}[!b]
+  \begin{center}
+    \includegraphics[width=3.5in]{Images/3-time.png}
+  \end{center}
+
+  \caption{\small Hot Spot Reads: Committing Transaction Execution Time }
+  \label{3-timet}
+\end{figure}
+
+\section{Background}
+
 
 \section{Future Work}
 

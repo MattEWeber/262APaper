@@ -67,8 +67,22 @@
 \@writefile{toc}{\contentsline {subsection}{\numberline {5.2}Initalization}{4}{subsection.5.2}}
 \@writefile{toc}{\contentsline {subsection}{\numberline {5.3}Strict Two-Phase Locking}{4}{subsection.5.3}}
 \@writefile{toc}{\contentsline {subsection}{\numberline {5.4}Optimistic Concurrency Control}{4}{subsection.5.4}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {5.5}Initialization}{4}{subsection.5.5}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {5.6}Pseudo Paxos vs Pseudo Byzantine Agreement}{4}{subsection.5.6}}
 \citation{ongaro_search_2014}
 \citation{zou_execution_2009}
+\@writefile{toc}{\contentsline {subsection}{\numberline {5.7}Remote Method Invocation}{5}{subsection.5.7}}
+\@writefile{toc}{\contentsline {section}{\numberline {6}Experiments and Results}{5}{section.6}}
+\@writefile{toc}{\contentsline {section}{\numberline {7}Background}{5}{section.7}}
+\@writefile{toc}{\contentsline {section}{\numberline {8}Future Work}{5}{section.8}}
+\@writefile{lof}{\contentsline {figure}{\numberline {5}{\ignorespaces \relax \fontsize  {9}{11}\selectfont  \abovedisplayskip 8.5\p@ plus3\p@ minus4\p@ \abovedisplayshortskip \z@ plus2\p@ \belowdisplayshortskip 4\p@ plus2\p@ minus2\p@ \def \leftmargin \leftmargini \parsep 4\p@ plus2\p@ minus\p@ \topsep 8\p@ plus2\p@ minus4\p@ \itemsep 4\p@ plus2\p@ minus\p@ {\leftmargin \leftmargini \topsep 4\p@ plus2\p@ minus2\p@ \parsep 2\p@ plus\p@ minus\p@ \itemsep \parsep }\belowdisplayskip \abovedisplayskip High Conflict Rate: Committing Transaction Execution Time }}{5}{figure.5}}
+\newlabel{1-time}{{5}{5}{\small High Conflict Rate: Committing Transaction Execution Time}{figure.5}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {6}{\ignorespaces \relax \fontsize  {9}{11}\selectfont  \abovedisplayskip 8.5\p@ plus3\p@ minus4\p@ \abovedisplayshortskip \z@ plus2\p@ \belowdisplayshortskip 4\p@ plus2\p@ minus2\p@ \def \leftmargin \leftmargini \parsep 4\p@ plus2\p@ minus\p@ \topsep 8\p@ plus2\p@ minus4\p@ \itemsep 4\p@ plus2\p@ minus\p@ {\leftmargin \leftmargini \topsep 4\p@ plus2\p@ minus2\p@ \parsep 2\p@ plus\p@ minus\p@ \itemsep \parsep }\belowdisplayskip \abovedisplayskip High Conflict Rate: Commit Percentage }}{5}{figure.6}}
+\newlabel{1-commit}{{6}{5}{\small High Conflict Rate: Commit Percentage}{figure.6}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {7}{\ignorespaces \relax \fontsize  {9}{11}\selectfont  \abovedisplayskip 8.5\p@ plus3\p@ minus4\p@ \abovedisplayshortskip \z@ plus2\p@ \belowdisplayshortskip 4\p@ plus2\p@ minus2\p@ \def \leftmargin \leftmargini \parsep 4\p@ plus2\p@ minus\p@ \topsep 8\p@ plus2\p@ minus4\p@ \itemsep 4\p@ plus2\p@ minus\p@ {\leftmargin \leftmargini \topsep 4\p@ plus2\p@ minus2\p@ \parsep 2\p@ plus\p@ minus\p@ \itemsep \parsep }\belowdisplayskip \abovedisplayskip Bank Application: Committing Transaction Execution Time }}{5}{figure.7}}
+\newlabel{2-time}{{7}{5}{\small Bank Application: Committing Transaction Execution Time}{figure.7}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {8}{\ignorespaces \relax \fontsize  {9}{11}\selectfont  \abovedisplayskip 8.5\p@ plus3\p@ minus4\p@ \abovedisplayshortskip \z@ plus2\p@ \belowdisplayshortskip 4\p@ plus2\p@ minus2\p@ \def \leftmargin \leftmargini \parsep 4\p@ plus2\p@ minus\p@ \topsep 8\p@ plus2\p@ minus4\p@ \itemsep 4\p@ plus2\p@ minus\p@ {\leftmargin \leftmargini \topsep 4\p@ plus2\p@ minus2\p@ \parsep 2\p@ plus\p@ minus\p@ \itemsep \parsep }\belowdisplayskip \abovedisplayskip Bank Application: Commit Percentage }}{5}{figure.8}}
+\newlabel{2-commit}{{8}{5}{\small Bank Application: Commit Percentage}{figure.8}{}}
 \bibstyle{abbrv}
 \bibdata{My_Library}
 \bibcite{baker_megastore:_2011}{1}
@@ -83,12 +97,6 @@
 \bibcite{lamport_byzantine_1982}{10}
 \bibcite{lee_terraswarm_2012}{11}
 \bibcite{mohan_aries:_1992}{12}
-\@writefile{toc}{\contentsline {subsection}{\numberline {5.5}Initialization}{5}{subsection.5.5}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {5.6}Pseudo Paxos vs Pseudo Byzantine Agreement}{5}{subsection.5.6}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {5.7}Remote Method Invocation}{5}{subsection.5.7}}
-\@writefile{toc}{\contentsline {section}{\numberline {6}Experiments and Results}{5}{section.6}}
-\@writefile{toc}{\contentsline {section}{\numberline {7}Future Work}{5}{section.7}}
-\@writefile{toc}{\contentsline {section}{\numberline {8}Acknowledgements}{5}{section.8}}
 \bibcite{ongaro_search_2014}{13}
 \bibcite{Pitt:2001:JRM:558733}{14}
 \bibcite{rabaey_swarm_2011}{15}
@@ -96,6 +104,9 @@
 \bibcite{rhea_pond:_2003}{17}
 \bibcite{rhea_handling_2003}{18}
 \bibcite{wound_wait}{19}
+\@writefile{toc}{\contentsline {section}{\numberline {9}Acknowledgements}{6}{section.9}}
+\@writefile{lof}{\contentsline {figure}{\numberline {9}{\ignorespaces \relax \fontsize  {9}{11}\selectfont  \abovedisplayskip 8.5\p@ plus3\p@ minus4\p@ \abovedisplayshortskip \z@ plus2\p@ \belowdisplayshortskip 4\p@ plus2\p@ minus2\p@ \def \leftmargin \leftmargini \parsep 4\p@ plus2\p@ minus\p@ \topsep 8\p@ plus2\p@ minus4\p@ \itemsep 4\p@ plus2\p@ minus\p@ {\leftmargin \leftmargini \topsep 4\p@ plus2\p@ minus2\p@ \parsep 2\p@ plus\p@ minus\p@ \itemsep \parsep }\belowdisplayskip \abovedisplayskip Hot Spot Reads: Committing Transaction Execution Time }}{6}{figure.9}}
+\newlabel{3-timet}{{9}{6}{\small Hot Spot Reads: Committing Transaction Execution Time}{figure.9}{}}
 \bibcite{sears_segment-based_2009}{20}
 \bibcite{stoica_chord:_2003}{21}
 \bibcite{weatherspoon_antiquity:_2007}{22}
