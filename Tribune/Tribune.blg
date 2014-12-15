@@ -8,45 +8,45 @@ Warning--entry type for "DabbeltKubiatowicz13_CaseForUniversalDataPlane" isn't s
 Warning--entry type for "Kubiatowicz14_EnablingSwarmThroughGlobalDataPlane" isn't style-file defined
 --line 70 of file My_Library.bib
 Warning--empty publisher in ongaro_search_2014
-You've used 14 entries,
+You've used 20 entries,
             2118 wiz_defined-function locations,
-            578 strings with 6788 characters,
-and the built_in function-call counts, 5410 in all, are:
-= -- 501
-> -- 340
-< -- 5
-+ -- 138
-- -- 120
-* -- 403
-:= -- 904
-add.period$ -- 42
-call.type$ -- 14
-change.case$ -- 101
+            614 strings with 7727 characters,
+and the built_in function-call counts, 7586 in all, are:
+= -- 712
+> -- 456
+< -- 6
++ -- 186
+- -- 160
+* -- 586
+:= -- 1271
+add.period$ -- 60
+call.type$ -- 20
+change.case$ -- 139
 chr.to.int$ -- 0
-cite$ -- 15
-duplicate$ -- 179
-empty$ -- 379
-format.name$ -- 120
-if$ -- 1110
+cite$ -- 21
+duplicate$ -- 248
+empty$ -- 540
+format.name$ -- 160
+if$ -- 1543
 int.to.chr$ -- 0
-int.to.str$ -- 14
-missing$ -- 12
-newline$ -- 71
-num.names$ -- 28
-pop$ -- 126
+int.to.str$ -- 20
+missing$ -- 18
+newline$ -- 101
+num.names$ -- 40
+pop$ -- 157
 preamble$ -- 1
-purify$ -- 88
+purify$ -- 120
 quote$ -- 0
-skip$ -- 134
+skip$ -- 178
 stack$ -- 0
-substring$ -- 250
-swap$ -- 44
-text.length$ -- 5
+substring$ -- 401
+swap$ -- 52
+text.length$ -- 6
 text.prefix$ -- 0
 top$ -- 0
-type$ -- 52
+type$ -- 76
 warning$ -- 1
-while$ -- 48
-width$ -- 16
-write$ -- 149
+while$ -- 70
+width$ -- 22
+write$ -- 215
 (There were 3 warnings)

@@ -65,27 +65,50 @@ directly and function as a sort of GDP cache for a particular data representatio
 
 Although CAAPIs can be used in the GDP to store data efficiently, they also have the capacity to  enforce semantics on the behavior of operations on data. This work, Tribune, is an example of a CAAPI that enforces external consistency along with standard ACID semantics on the behavior of a multi-writer log. The general concept of this style of CAAPI is illustrated in Figure~\ref{Database_CAAPI}. Tribune's name is a reference to the role of an ancient Roman Tribune, an elected official with the power to intervene on behalf of the common people by vetoing legislation from the senate. In a similar respect, Tribune can control transactions that attempt to write to a protected log in this multi-writer merge style, and abort transactions that violate its semantics. 
 
+This paper is organized as follows: Section II provides background information on the database behavior we seek to emulate in Tribune. Section III gives an overview of the system architecture and design. Section IV goes into the implementation details for our most interesting algorithms. Section V elaborates on our test environment setup and presents benchmark results. In Section VI we address the direction of future work. We conclude with Section VII.
 
-This paper is organized as follows: Section II provides background information on the database behavior we seek to emulate in Tribune. Section III gives an overview of the system architecture and design. Section IV goes into the implementation details of several crucial algorithms. Section V elaborates on our test environment setup and presents benchmark results. In Section VI we address the direction of future work. We conclude with Section VII.
+
+\begin{figure}[!b]
+  \begin{center}
+    \includegraphics[width=3.5in]{Images/TrueTime.png}
+% \includegraphics[width=3.5in]{Images/Database_CAAPI.png}
+  \end{center}
+
+  \caption{\small Spanner's TrueTime interface. Image from Table 1 of \cite{corbett_spanner:_2012}. Note that t is a timestamp }
+  \label{TrueTime}
+\end{figure}
+
+
+
+\begin{figure}[!b]
+  \begin{center}
+    \includegraphics[width=3.5in]{Images/Spanner_Arch.png}
+  \end{center}
+
+  \caption{\small Spanner's Architecture. Image from Figure 2 of \cite{corbett_spanner:_2012} }
+  \label{Spanner_Arch}
+\end{figure}
 
 \section{Background}
 
-Tribune's primary role is to enforce database semantics on a multi-writer log. 
-Google Spanner \textbf{SPANNER PICTURES GO HERE!!!}
+Tribune's primary role is to enforce database semantics on a multi-writer log. We chose the semantics of Google Spanner's read write transactions \cite{corbett_spanner:_2012} because Spanner provides a time-based external consistency guarantee and works at a global scale. External consistency establishes the invariant that if transaction A commits before transaction B begins as observed from the outside world, timestamp associated with transaction B in the database must be later than than A's timestamp. Spanner achieves this invariant through a combination of two phase locking within a Paxos group, time-aware two-phase commit between Paxos groups, and precise implementation of the TrueTime API as shown in Figure~\ref{TrueTime}. TrueTime establishes an ordering between timestamps that reflects error in clock synchronization, i.e. it is unknown whether a timestamp proceeds another unless the difference in the timestamps exceeds the known upper bound on the offset between clocks.
+Spanner's high level architecture is shown in Figure~\ref{Spanner_Arch}. All of the tablets that are associated with a particular data model run on a set of replicas in the same Paxos group. The primary responsibility of the Paxos leader is to replicate the state of writes that go through it across the group. The leader also acts as a bottleneck for all read write transactions, which allows it to maintain a lock table that reflects the status of transactions currently in flight. Clients that want to perform read write transactions must acquire locks through two phase commit, and deadlocks are prevented with wound wait \cite{wound_wait}. When a read write transaction needs to commit across paxos groups (a "distributed transaction"), one paxos leader steps up for the role of participant leader and runs a transaction manager to organize the two-phase commit. Spanner also supports read only transactions and read transactions (the two are actually distinct types in Spanner) that can be performed at any replica without going through the paxos leader.
+
 
 \subsection{Time Synchronization}
+Spanner uses a complex global network of atomic and gps clocks to achieve time synchronization. An advantage of establishing very accurate clocks with very low drift is that very little communication is needed to preserve synchrony. IEEE 1588, the Precision Time Protocol \cite{ratzel_toward_2012} presents an alternative, ip based mechanism to achieve synchronization on the order of microseconds across a wired local area network. Truetime is used in spanner to determine when to pick timestamps for transactions in two-phase commit and how long to hold locks after committing within a paxos group.  Note that without any kind of synchronization between clients, relativity makes it impossible to evaluate external consistency. The definition of external consistency requires that transactions outside the system exist on a shared timeline (because they must be comparable) which implies some way to compare times at two locations, whether quantitative or logical \cite{lamport_time_1978}.
+
 
 \subsection{Consensus Algorithms and Durability}
 
+Consensus algorithms like Paxos \cite{Lamport_paxos} and Byzantine Agreement \cite{lamport_byzantine_1982}  \textbf{COMPLETE THIS SECTION}
+
 Reed-Solomon encoding \cite{Reed-Solomon}  is a good approach for long-term data storage when the top objective is reducing the probability that data will be lost. But for short term data storage, using a consensus algorithm to achieve agreement on the state of a set of replicas is a much faster approach. Perhaps the Reed-Solomon encoding data might be verified by a Byzantine Agreement ring as in \cite{rhea_pond:_2003} but in the short term, other methods become much more practical. As a long-term objective for the GDP, the system ought to achieve a balance between durable and responsive storage.
 
-Another dimension of durability concerns the transfer of data from volatile to non-volatile memory such that a particular machine can recover from a crash or power outage. Although we didn't implement this part of a database in Tribune, algorithms that address this concern (such as \cite{mohan_aries:_1992} and \cite{sears_segment-based_2009} ) are well known in the literature and are applied in mature databases.
-
-\subsection{Durability}
-
+Another dimension of durability concerns the transfer of data from volatile to non-volatile memory such that a particular machine can recover from a crash or power outage. Although we didn't implement this part of a database in Tribune, algorithms that address this concern (such as \cite{mohan_aries:_1992} and \cite{sears_segment-based_2009} ) are well known in the literature and are applied in most mature databases.
 
 \subsection{Routing in the GDP}
-Data must be routed to Tribune in the GDP through an overlay network. Oceanstore used Tapestry \cite{zhao_tapestry:_2004}, although a distributed hash table approach such as Chord \cite{stoica_chord:_2003} or Bamboo \cite{rhea_handling_2003} for routing. A project is currently underway in the GDP to efficiently route to the opaque identifiers that signify the location of a log server or a CAAPI.
+Data must be routed to Tribune in the GDP through an overlay network. Oceanstore used Tapestry \cite{zhao_tapestry_2004}, although a distributed hash table approach such as Chord \cite{stoica_chord:_2003} or Bamboo \cite{rhea_handling_2003} for routing. A project is currently underway in the GDP to efficiently route to the opaque identifiers that signify the location of a log server or a CAAPI.
 
 
 \section{System Architecture}

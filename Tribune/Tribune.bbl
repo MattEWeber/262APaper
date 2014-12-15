@@ -10,6 +10,12 @@ T.~D. Chandra, R.~Griesemer, and J.~Redstone.
 \newblock In {\em Proceedings of the twenty-sixth annual {ACM} symposium on
   Principles of distributed computing}, pages 398--407. {ACM}, 2007.
 
+\bibitem{corbett_spanner:_2012}
+J.~C. Corbett, J.~Dean, M.~Epstein, A.~Fikes, C.~Frost, J.~J. Furman,
+  S.~Ghemawat, A.~Gubarev, C.~Heiser, and P.~Hochschild.
+\newblock Spanner: Google’s globally-distributed database.
+\newblock In {\em Proceedings of {OSDI}}, volume~1, 2012.
+
 \bibitem{DabbeltKubiatowicz13_CaseForUniversalDataPlane}
 P.~Dabbelt and J.~D. Kubiatowicz.
 \newblock A case for the universal dataplane, September 2013.
@@ -19,6 +25,22 @@ P.~Dabbelt and J.~D. Kubiatowicz.
 \bibitem{Kubiatowicz14_EnablingSwarmThroughGlobalDataPlane}
 J.~D. Kubiatowicz.
 \newblock Enabling the swarm through the global data plane, November 2014.
+
+\bibitem{lamport_time_1978}
+L.~Lamport.
+\newblock Time, clocks, and the ordering of events in a distributed system.
+\newblock {\em Communications of the {ACM}}, 21(7):558--565, 1978.
+
+\bibitem{Lamport_paxos}
+L.~Lamport.
+\newblock The part-time parliament.
+\newblock {\em ACM Trans. Comput. Syst.}, 16(2):133--169, May 1998.
+
+\bibitem{lamport_byzantine_1982}
+L.~Lamport, R.~Shostak, and M.~Pease.
+\newblock The byzantine generals problem.
+\newblock {\em {ACM} Transactions on Programming Languages and Systems
+  ({TOPLAS})}, 4(3):382--401, 1982.
 
 \bibitem{lee_terraswarm_2012}
 E.~A. Lee, J.~D. Kubiatowicz, J.~M. Rabaey, A.~L. Sangiovanni-Vincentelli,
@@ -45,6 +67,11 @@ J.~M. Rabaey.
 \newblock In {\em {VLSI} Circuits ({VLSIC}), 2011 Symposium on}, pages 6--8,
   2011.
 
+\bibitem{ratzel_toward_2012}
+R.~Ratzel and R.~Greenstreet.
+\newblock Toward higher precision.
+\newblock {\em Communications of the {ACM}}, 55(10):38--47, 2012.
+
 \bibitem{rhea_pond:_2003}
 S.~C. Rhea, P.~R. Eaton, D.~Geels, H.~Weatherspoon, B.~Y. Zhao, and
   J.~Kubiatowicz.
@@ -55,6 +82,11 @@ S.~C. Rhea, P.~R. Eaton, D.~Geels, H.~Weatherspoon, B.~Y. Zhao, and
 S.~C. Rhea, D.~Geels, T.~Roscoe, and J.~Kubiatowicz.
 \newblock {\em Handling churn in a {DHT}}.
 \newblock Computer Science Division, University of California, 2003.
+
+\bibitem{wound_wait}
+D.~J. Rosenkrantz, R.~E. Stearns, and P.~M. Lewis, II.
+\newblock System level concurrency control for distributed database systems.
+\newblock {\em ACM Trans. Database Syst.}, 3(2):178--198, June 1978.
 
 \bibitem{sears_segment-based_2009}
 R.~Sears and E.~Brewer.
@@ -68,7 +100,7 @@ I.~Stoica, R.~Morris, D.~Liben-Nowell, D.~R. Karger, M.~F. Kaashoek, F.~Dabek,
   applications.
 \newblock {\em Networking, {IEEE}/{ACM} Transactions on}, 11(1):17--32, 2003.
 
-\bibitem{zhao_tapestry:_2004}
+\bibitem{zhao_tapestry_2004}
 B.~Zhao, L.~Huang, J.~Stribling, S.~Rhea, A.~Joseph, and J.~Kubiatowicz.
 \newblock Tapestry: A resilient global-scale overlay for service deployment.
 \newblock {\em {IEEE} Journal on Selected Areas in Communications},
