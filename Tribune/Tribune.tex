@@ -44,6 +44,7 @@ Email: matt.weber, jane.huang, lsupian@berkeley.edu
 \maketitle
 \thispagestyle{empty}
 
+
 \begin{abstract}
 	The Global Data Plane (GDP) is a distributed data storage system with the objective of providing persistent data storage to devices in the internet of things. The GDP has a variety of useful properties including data security, a flat namespace, and location independent routing, that improve the availability and efficiency of universal data storage. As a key component in the Terraswarm project and the SwarmOS, the GDP provides log based storage and routing between sensors and actuators embedded in the physical world. Logs are the fundamental primitive of the GDP, but some CAAPIs (a Common Access Application Programming Interface) require stronger semantics. In this paper we introduce Tribune, a multi-writer log CAAPI that enforces Google Spanner-like external consistency. We compare the trusted Paxos based replication scheme with attack tolerant Byzantine Agreement and evaluate optimistic concurrency against the lock table-based concurrency control scheme used by Google Spanner. In a performance evaluation we found the optimistic algorithm to be generally faster than the comparable lock table approach, particularly when paired with Byzantine agreement. Our long term goal is to provide PTIDES style deterministic execution semantics for swarmlets in the SwarmOS that choose to access time-aware multi-writer logs.
 \end{abstract}
@@ -96,6 +97,8 @@ Tribune's primary role is to enforce database semantics on a multi-writer log. W
 Spanner's high level architecture, shown in Figure~\ref{Spanner_Arch}, shares components and terminology with Chubby  \cite{chandra_paxos_2007}, Megastore \cite{baker_megastore:_2011}, and BigTable \cite{chang_bigtable:_2008}, all Google projects as well. In Spanner, the tablets that are associated with a particular data model run on a set of replicas in the same Paxos group. The primary responsibility of the Paxos leader is to replicate the state of writes that go through it across the group. The leader also acts as a bottleneck for all read write transactions, which allows it to maintain a lock table that reflects the status of transactions currently in flight. Clients that want to perform read write transactions must acquire locks through two phase commit, and deadlocks are prevented with wound wait \cite{wound_wait}. When a read write transaction needs to commit across paxos groups (a "distributed transaction"), one paxos leader steps up for the role of participant leader and runs a transaction manager to organize the two-phase commit. Spanner also supports read only transactions and read transactions (the two are actually distinct types in Spanner) that can be performed at any replica without going through the paxos leader.
 
 
+
+
 \subsection{Time Synchronization}
 Spanner uses a global network of atomic and gps clocks to achieve time synchronization. An advantage of establishing very accurate clocks with very low drift is that very little communication is needed to preserve synchrony. IEEE 1588, the Precision Time Protocol \cite{ratzel_toward_2012} presents an alternative, ip based mechanism to achieve synchronization on the order of microseconds across a wired local area network. Truetime is used in spanner to determine when to pick timestamps for transactions in two-phase commit and how long to hold locks after committing within a paxos group.  Note that without any kind of synchronization between clients, relativity makes it impossible to evaluate external consistency. The definition of external consistency requires that transactions outside the system exist on a shared timeline (because they must be comparable) which implies some way to compare times at two locations, whether quantitative or logical \cite{lamport_time_1978}.
 
@@ -113,6 +116,17 @@ Another dimension of durability concerns the transfer of data from volatile to n
 \subsection{Routing in the GDP}
 Data must be routed to Tribune in the GDP through an overlay network. Oceanstore used Tapestry \cite{zhao_tapestry_2004}, although a distributed hash table approach such as Chord \cite{stoica_chord:_2003} or Bamboo \cite{rhea_handling_2003} for routing. A project is currently underway in the GDP to efficiently route to the opaque identifiers that signify the location of a log server or a CAAPI.
 
+\begin{figure}[!b]
+  \begin{center}
+    \includegraphics[width=3.5in]{Images/Tribune_Arch.png}
+  \end{center}
+
+  \caption{\small Tribune's Architecture. }
+  \label{Tribune_Arch}
+\end{figure}
+
+\section{Background}
+
 
 \section{System Architecture}
  \textbf{ARCHITECTURE PICTURES GO HERE!!!}
@@ -122,13 +136,27 @@ The responder receives transactions from client applications. It parses each ope
 
 We only implement the necessary components for read-write transactions. So all transactions would go through the leader replica to validate their respective lock leases before committing via paxos protocol. If the validation is successful, the leader would go through all paxos phases and return the final transaction status (abort or commit) back to responder. The responder will return the transaction status back to client apps.
 
-Below is a diagram for the overall architecture:
+%Below is a diagram for the overall architecture:
 
 \textbf{//then talk about modifications on the first version to incorporate optimistic concurrency control and byzantine agreement}
 
 
 \section{Algorithms and Implementation}
+
+\textbf{EDIT THIS TO MAKE IT THE RIGHT TENSE}
 In this section, we're going to elaborate on the algorithmic part of the project, which is our choices of concurrency control protocol and commit consensus protocol. We did strict two-phase locking and optimistic concurrency for concurrency control. We also did paxos and byzantine agreement for commit consensus protocol. We would explain in detail how we implement four algorithms in our project and compare the tradeoffs in this section. The benchmark results would be in the next section.
+
+\subsection{Programming Tools}
+
+We originally choose to implement Tribune in Java because the project team had familiarity with the language, and we felt a strongly typed, garbage collecting, object oriented language would reduce the frequency of programming errors in development. Java is known to perform "stop the world" garbage collection, in which execution periodically halts in all threads for 10s of milliseconds, but considering the low precision of our ultimate testing environment (three laptops) we decided it was an acceptable penalty given Java's other advantages.
+
+As shown in Figure~\ref{Tribune_Arch}, client processes need to establish a connection with Responders, and Responders must communicate with Replicas, likely all across a network. Early on we experimented with basic java socket IO, but we realized we would have to repetitively implement the same programming idiom of a server that handles the connection and a parser thread that is responsible for reading a custom defined language of intended commands to be called on the receiving object. A little investigation found that this functionality was already available in the Java Remote Method Invocation framework \cite{Pitt:2001:JRM:558733},  so we chose to use it instead of building a similar system from scratch.
+
+However, RMI was not a perfect solution. The RMI server that is started for each registered object does not use a thread pool; it simply forks off a new thread whenever it gets a connection. The Sun implementation of RMI exposes a parameter for the number of TCP connections that can be ongoing at once, but this doesn't limit the number of worker threads that can be alive in the system at a given time. Therefore with a sufficiently large number of clients, spawning an arbitrarily large number of threads the RMI server may be ill-conditioned. Switching to SEDA \cite{welsh_seda:_2001} for future work, would alleviate this problem, but significantly change our programming model.
+
+RMI also presents a naming problem. Surprisingly, RMI does not support a remote rmiregistry where objects can be found directly by registration name. A remote object may only be registered on a local rmiregistry server with a name of the form "\textless{}ip address of host machine\textgreater{}/\textless{}registration name\textgreater{}".  Since our performance evaluation was performed on machines without static ip addresses, we potentially faced an addressing nightmare where the ip address of remote object s would change sporadically. To address this issue, we implemented a naming service over RMI we called Remote Registry, that maps a "\textless{}registration name\textgreater{}" to a full network-ready string of the form "//\textless{}ip address of host machine\textgreater{}/\textless{}registration name\textgreater{}". With Remote Registry we could publish not only the location of an object when its ip address changed, but also the availability of resources during initialization.
+
+\subsection{Initalization}
 
 \subsection{Strict Two-Phase Locking}
 \begin{lstlisting}
@@ -146,6 +174,8 @@ public class Hello extends JApplet {
 \subsection{Optimistic Concurrency Control}
 Subsubsection text here.
 
+\subsection{Initialization}
+
 \subsection{Pseudo Paxos vs Pseudo Byzantine Agreement}
 
 We had to deal first-hand with a non-obvious implementation detail that arises in the practical implementation of Paxos: out-of-date replicas. We took inspiration from Chubby's solution to the problem  \cite{chandra_paxos_2007} by using sequence numbers to catch a replica back up to the current state of the system when possible. It would be impractical to maintain a permanent map between paxos sequence numbers and changes to the database, so instead we truncate the log at a fixed distance in the past. If a replica is further behind than the end of the log, it asks for a snapshot of the current state of the system from the leader, and achieves up-to-date status.
@@ -162,6 +192,7 @@ Subsubsection text here.
 
 Spanner-style semantics concerning time are most certainly not the only option for a CAAPI in the GDP. PTIDES \cite{zou_execution_2009} provides both an execution model and a simulation environment for time-aware computation. Rather than dealing with transactions, PTIDES determines the execution of atomic events and enforces that sensor-to-actuator deadlines are met. As an advantage of tight time synchronization and atomic events, PTIDES can define a deterministic time-ordered merge between two input streams by simply waiting out the clock uncertainty before writing. This policy guarantees no future event could be timestamped further in the past than the written value.
 
+Reconsidering our implementation choices now the project is complete, THREADS ARE EVIL
 
 
 
@@ -173,6 +204,7 @@ Thanks to Dr. Patricia Derler for her input on Spanner and time synchronization.
 
 \bibliographystyle{abbrv}
 \bibliography{My_Library}
+
 
 
 \end{document}

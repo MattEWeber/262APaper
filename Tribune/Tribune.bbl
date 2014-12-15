@@ -74,6 +74,11 @@ D.~Ongaro and J.~Ousterhout.
   version)}.
 \newblock 2014.
 
+\bibitem{Pitt:2001:JRM:558733}
+E.~Pitt and K.~McNiff.
+\newblock {\em Java.Rmi: The Remote Method Invocation Guide}.
+\newblock Addison-Wesley Longman Publishing Co., Inc., Boston, MA, USA, 2001.
+
 \bibitem{rabaey_swarm_2011}
 J.~M. Rabaey.
 \newblock The swarm at the edge of the cloud-a new perspective on wireless.
@@ -117,6 +122,13 @@ I.~Stoica, R.~Morris, D.~Liben-Nowell, D.~R. Karger, M.~F. Kaashoek, F.~Dabek,
 H.~Weatherspoon, P.~Eaton, B.-G. Chun, and J.~Kubiatowicz.
 \newblock Antiquity: exploiting a secure log for wide-area distributed storage.
 \newblock {\em {ACM} {SIGOPS} Operating Systems Review}, 41(3):371--384, 2007.
+
+\bibitem{welsh_seda:_2001}
+M.~Welsh, D.~Culler, and E.~Brewer.
+\newblock {SEDA}: an architecture for well-conditioned, scalable internet
+  services.
+\newblock In {\em {ACM} {SIGOPS} Operating Systems Review}, volume~35, pages
+  230--243. {ACM}, 2001.
 
 \bibitem{zhao_tapestry_2004}
 B.~Zhao, L.~Huang, J.~Stribling, S.~Rhea, A.~Joseph, and J.~Kubiatowicz.

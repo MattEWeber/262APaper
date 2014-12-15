@@ -3,12 +3,16 @@
 \BOOKMARK [2][-]{subsection.2.1}{Time Synchronization}{section.2}% 3
 \BOOKMARK [2][-]{subsection.2.2}{Consensus Algorithms and Durability}{section.2}% 4
 \BOOKMARK [2][-]{subsection.2.3}{Routing in the GDP}{section.2}% 5
-\BOOKMARK [1][-]{section.3}{System Architecture}{}% 6
-\BOOKMARK [1][-]{section.4}{Algorithms and Implementation}{}% 7
-\BOOKMARK [2][-]{subsection.4.1}{Strict Two-Phase Locking}{section.4}% 8
-\BOOKMARK [2][-]{subsection.4.2}{Optimistic Concurrency Control}{section.4}% 9
-\BOOKMARK [2][-]{subsection.4.3}{Pseudo Paxos vs Pseudo Byzantine Agreement}{section.4}% 10
-\BOOKMARK [2][-]{subsection.4.4}{Remote Method Invocation}{section.4}% 11
-\BOOKMARK [1][-]{section.5}{Experiments and Results}{}% 12
-\BOOKMARK [1][-]{section.6}{Future Work}{}% 13
-\BOOKMARK [1][-]{section.7}{Acknowledgements}{}% 14
+\BOOKMARK [1][-]{section.3}{Background}{}% 6
+\BOOKMARK [1][-]{section.4}{System Architecture}{}% 7
+\BOOKMARK [1][-]{section.5}{Algorithms and Implementation}{}% 8
+\BOOKMARK [2][-]{subsection.5.1}{Programming Tools}{section.5}% 9
+\BOOKMARK [2][-]{subsection.5.2}{Initalization}{section.5}% 10
+\BOOKMARK [2][-]{subsection.5.3}{Strict Two-Phase Locking}{section.5}% 11
+\BOOKMARK [2][-]{subsection.5.4}{Optimistic Concurrency Control}{section.5}% 12
+\BOOKMARK [2][-]{subsection.5.5}{Initialization}{section.5}% 13
+\BOOKMARK [2][-]{subsection.5.6}{Pseudo Paxos vs Pseudo Byzantine Agreement}{section.5}% 14
+\BOOKMARK [2][-]{subsection.5.7}{Remote Method Invocation}{section.5}% 15
+\BOOKMARK [1][-]{section.6}{Experiments and Results}{}% 16
+\BOOKMARK [1][-]{section.7}{Future Work}{}% 17
+\BOOKMARK [1][-]{section.8}{Acknowledgements}{}% 18
