@@ -1,0 +1,200 @@
+@inproceedings{rhea_pond:_2003,
+	title = {Pond: The {OceanStore} Prototype.},
+	volume = {3},
+	shorttitle = {Pond},
+	url = {http://www.usenix.org/events/fast03/tech/rhea/rhea_html/},
+	urldate = {2014-01-27},
+	booktitle = {{FAST}},
+	author = {Rhea, Sean C. and Eaton, Patrick R. and Geels, Dennis and Weatherspoon, Hakim and Zhao, Ben Y. and Kubiatowicz, John},
+	year = {2003},
+	pages = {1--14},
+	file = {fast2003-pond.pdf:/Users/matt.weber/Library/Application Support/Zotero/Profiles/2oqtwwpl.default/zotero/storage/ZQ92CKV8/fast2003-pond.pdf:application/pdf}
+}
+
+@techreport{lee_terraswarm_2012,
+	title = {The {TerraSwarm} Research Center ({TSRC})(A White Paper)},
+	url = {http://www.eecs.berkeley.edu/Pubs/TechRpts/2012/EECS-2012-207.pdf},
+	urldate = {2013-10-31},
+	institution = {Technical report {UCB}/{EECS}-2012-207},
+	author = {Lee, Edward A. and Kubiatowicz, John D. and Rabaey, Jan M. and Sangiovanni-Vincentelli, Alberto L. and Seshia, Sanjit A. and Wawrzynek, John and Blaauw, David and Dutta, Prabal and Fu, Kevin and Guestrin, Carlos},
+	year = {2012},
+	file = {EECS-2012-207.pdf:/Users/matt.weber/Library/Application Support/Zotero/Profiles/2oqtwwpl.default/zotero/storage/E83CWG4N/EECS-2012-207.pdf:application/pdf}
+}
+
+@inproceedings{rabaey_swarm_2011,
+	title = {The swarm at the edge of the cloud-A new perspective on wireless},
+	url = {http://ieeexplore.ieee.org/xpls/abs_all.jsp?arnumber=5985988},
+	urldate = {2013-10-21},
+	booktitle = {{VLSI} Circuits ({VLSIC}), 2011 Symposium on},
+	author = {Rabaey, Jan M.},
+	year = {2011},
+	pages = {6--8},
+	file = {05985988.pdf:/Users/matt.weber/Library/Application Support/Zotero/Profiles/2oqtwwpl.default/zotero/storage/FS55BGQM/05985988.pdf:application/pdf}
+}
+
+
+@presentation{DabbeltKubiatowicz13_CaseForUniversalDataPlane,
+    author = {Palmer Dabbelt and John D. Kubiatowicz},
+    title = { A Case for the Universal DataPlane},
+    day = {29},
+    month = {September},
+    year = {2013},
+    note = {Presented at theFirst
+              International Workshop on the Swarm at the Edge of
+              the Cloud (SEC'13 @ ESWeek)},
+    abstract = {In this talk, we will make the argument that
+              interposing a "Universal Data Plane" (UDPlane)
+              abstraction between components in Swarm
+              applications provides a clean mechanism for
+              constructing such applications. The UDPlane is a
+              distributed entity that persists beneath the
+              physical components of swarm applications. It
+              provides location-independent naming for sources
+              and sinks of data (called "Endpoints" for the
+              remainder of this document). Endpoints are not
+              permanently associated with IP addresses or other
+              fixed routing addresses, but rather exist in a
+              large flat namespace with sufficient identifiers
+              (such as SHA-256 hashes). The basic abstraction is
+              that of sending secure, immutable data
+              "transactions" from a source Endpoint to one or
+              more sink Endpoints. Transactions are time-stamped
+              and (to the extent possible) securely associated
+              with the source of the transaction via a
+              signature. Sinks are specified by, among other
+              things, their level of data persistence from
+              transient to deep archival (years or decades).},
+    URL = {http://terraswarm.org/pubs/116.html}
+}
+
+@tutorial{Kubiatowicz14_EnablingSwarmThroughGlobalDataPlane,
+    author = {John D. Kubiatowicz},
+    title = {Enabling the Swarm through the Global Data Plane},
+    day = {13},
+    month = {November},
+    year = {2014},
+    abstract = {The Global Data Plane (GDP) provides a
+              data-centric glue for swarm applications. The
+              basic primitive is that of a multi-input,
+              multi-output, time-aware secure log. Data inputs
+              are timestamped and rearranged by timestamp. Data
+              can be securely committed to the log in a variety
+              of ways, including via a external consistent
+              transactional model. Data within the log can be
+              randomly read, thereby permitting a variety of
+              data models, including (eventually) a SQL query
+              model. Further, data within a log can be preserved
+              for the long term.},
+    URL = {http://terraswarm.org/pubs/462.html}
+}
+
+@inproceedings{zou_execution_2009,
+	title = {Execution strategies for {PTIDES}, a programming model for distributed embedded systems},
+	url = {http://ieeexplore.ieee.org/xpls/abs_all.jsp?arnumber=4840569},
+	urldate = {2014-10-29},
+	booktitle = {Real-Time and Embedded Technology and Applications Symposium, 2009. {RTAS} 2009. 15th {IEEE}},
+	publisher = {{IEEE}},
+	author = {Zou, Jia and Matic, Slobodan and Lee, Edward A. and Feng, Thomas Huining and Derler, Patricia},
+	year = {2009},
+	pages = {77--86},
+	file = {RTASPtides-1.pdf:/Users/matt.weber/Library/Application Support/Zotero/Profiles/2oqtwwpl.default/zotero/storage/K4H8DSEN/RTASPtides-1.pdf:application/pdf}
+}
+
+@article{zhao_tapestry:_2004,
+	title = {Tapestry: A Resilient Global-Scale Overlay for Service Deployment},
+	volume = {22},
+	issn = {0733-8716},
+	shorttitle = {Tapestry},
+	url = {http://ieeexplore.ieee.org/lpdocs/epic03/wrapper.htm?arnumber=1258114},
+	doi = {10.1109/JSAC.2003.818784},
+	language = {en},
+	number = {1},
+	urldate = {2014-11-11},
+	journal = {{IEEE} Journal on Selected Areas in Communications},
+	author = {Zhao, B.Y. and Huang, L. and Stribling, J. and Rhea, S.C. and Joseph, A.D. and Kubiatowicz, J.D.},
+	month = jan,
+	year = {2004},
+	pages = {41--53},
+	file = {tapestry_jsac.pdf:/Users/matt.weber/Library/Application Support/Zotero/Profiles/2oqtwwpl.default/zotero/storage/K3WI7G76/tapestry_jsac.pdf:application/pdf}
+}
+
+
+@book{rhea_handling_2003,
+	title = {Handling churn in a {DHT}},
+	url = {http://www.oceanstore.net/publications/papers/pdf/csd-03-1299.pdf},
+	urldate = {2014-12-15},
+	publisher = {Computer Science Division, University of California},
+	author = {Rhea, Sean Christopher and Geels, Dennis and Roscoe, Timothy and Kubiatowicz, John},
+	year = {2003},
+	file = {CSD-03-1299.pdf:/Users/matt.weber/Library/Application Support/Zotero/Profiles/2oqtwwpl.default/zotero/storage/ZSCEWXNR/CSD-03-1299.pdf:application/pdf}
+}
+
+@article{stoica_chord:_2003,
+	title = {Chord: a scalable peer-to-peer lookup protocol for internet applications},
+	volume = {11},
+	shorttitle = {Chord},
+	url = {http://ieeexplore.ieee.org/xpls/abs_all.jsp?arnumber=1180543},
+	number = {1},
+	urldate = {2014-11-11},
+	journal = {Networking, {IEEE}/{ACM} Transactions on},
+	author = {Stoica, Ion and Morris, Robert and Liben-Nowell, David and Karger, David R. and Kaashoek, M. Frans and Dabek, Frank and Balakrishnan, Hari},
+	year = {2003},
+	pages = {17--32},
+	file = {chord-ton.pdf:/Users/matt.weber/Library/Application Support/Zotero/Profiles/2oqtwwpl.default/zotero/storage/W2A83AC3/chord-ton.pdf:application/pdf}
+}
+
+@MISC{Reed-Solomon,
+    author = {Johannes Blömer and Malik Kalfane and Richard Karp and Marek Karpinski and Michael Luby and David Zuckerman},
+    title = {An XOR-Based Erasure-Resilient Coding Scheme},
+    year = {1995}
+}
+
+@inproceedings{chandra_paxos_2007,
+	title = {Paxos made live: an engineering perspective},
+	shorttitle = {Paxos made live},
+	url = {http://dl.acm.org/citation.cfm?id=1281103},
+	urldate = {2014-11-22},
+	booktitle = {Proceedings of the twenty-sixth annual {ACM} symposium on Principles of distributed computing},
+	publisher = {{ACM}},
+	author = {Chandra, Tushar D. and Griesemer, Robert and Redstone, Joshua},
+	year = {2007},
+	pages = {398--407},
+	file = {chandra07paxos.pdf:/Users/matt.weber/Library/Application Support/Zotero/Profiles/2oqtwwpl.default/zotero/storage/6B4EWV64/chandra07paxos.pdf:application/pdf}
+}
+
+@book{ongaro_search_2014,
+	title = {In search of an understandable consensus algorithm (extended version)},
+	url = {http://74.207.243.117/var/blurbs/pubs/raft-tr14.pdf},
+	urldate = {2014-11-23},
+	author = {Ongaro, Diego and Ousterhout, John},
+	year = {2014},
+	file = {raft.pdf:/Users/matt.weber/Library/Application Support/Zotero/Profiles/2oqtwwpl.default/zotero/storage/25C8PAUU/raft.pdf:application/pdf}
+}
+
+@article{mohan_aries:_1992,
+	title = {{ARIES}: a transaction recovery method supporting fine-granularity locking and partial rollbacks using write-ahead logging},
+	volume = {17},
+	shorttitle = {{ARIES}},
+	url = {http://dl.acm.org/citation.cfm?id=128770},
+	number = {1},
+	urldate = {2014-09-18},
+	journal = {{ACM} Transactions on Database Systems ({TODS})},
+	author = {Mohan, C. and Haderle, Don and Lindsay, Bruce and Pirahesh, Hamid and Schwarz, Peter},
+	year = {1992},
+	pages = {94--162},
+	file = {Aries.pdf:/Users/matt.weber/Library/Application Support/Zotero/Profiles/2oqtwwpl.default/zotero/storage/7USMENCB/Aries.pdf:application/pdf}
+}
+
+@article{sears_segment-based_2009,
+	title = {Segment-based recovery: write-ahead logging revisited},
+	volume = {2},
+	shorttitle = {Segment-based recovery},
+	url = {http://dl.acm.org/citation.cfm?id=1687683},
+	number = {1},
+	urldate = {2014-09-22},
+	journal = {Proceedings of the {VLDB} Endowment},
+	author = {Sears, Russell and Brewer, Eric},
+	year = {2009},
+	pages = {490--501},
+	file = {vldb09-583.pdf:/Users/matt.weber/Library/Application Support/Zotero/Profiles/2oqtwwpl.default/zotero/storage/7UJMSCNC/vldb09-583.pdf:application/pdf}
+}

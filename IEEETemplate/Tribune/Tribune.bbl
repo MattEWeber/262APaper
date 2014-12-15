@@ -1,0 +1,84 @@
+\begin{thebibliography}{10}
+
+\bibitem{Reed-Solomon}
+J.~Blömer, M.~Kalfane, R.~Karp, M.~Karpinski, M.~Luby, and D.~Zuckerman.
+\newblock An xor-based erasure-resilient coding scheme, 1995.
+
+\bibitem{chandra_paxos_2007}
+T.~D. Chandra, R.~Griesemer, and J.~Redstone.
+\newblock Paxos made live: an engineering perspective.
+\newblock In {\em Proceedings of the twenty-sixth annual {ACM} symposium on
+  Principles of distributed computing}, pages 398--407. {ACM}, 2007.
+
+\bibitem{DabbeltKubiatowicz13_CaseForUniversalDataPlane}
+P.~Dabbelt and J.~D. Kubiatowicz.
+\newblock A case for the universal dataplane, September 2013.
+\newblock Presented at theFirst International Workshop on the Swarm at the Edge
+  of the Cloud (SEC'13 @ ESWeek).
+
+\bibitem{Kubiatowicz14_EnablingSwarmThroughGlobalDataPlane}
+J.~D. Kubiatowicz.
+\newblock Enabling the swarm through the global data plane, November 2014.
+
+\bibitem{lee_terraswarm_2012}
+E.~A. Lee, J.~D. Kubiatowicz, J.~M. Rabaey, A.~L. Sangiovanni-Vincentelli,
+  S.~A. Seshia, J.~Wawrzynek, D.~Blaauw, P.~Dutta, K.~Fu, and C.~Guestrin.
+\newblock The {TerraSwarm} research center ({TSRC})(a white paper).
+\newblock Technical report, Technical report {UCB}/{EECS}-2012-207, 2012.
+
+\bibitem{mohan_aries:_1992}
+C.~Mohan, D.~Haderle, B.~Lindsay, H.~Pirahesh, and P.~Schwarz.
+\newblock {ARIES}: a transaction recovery method supporting fine-granularity
+  locking and partial rollbacks using write-ahead logging.
+\newblock {\em {ACM} Transactions on Database Systems ({TODS})}, 17(1):94--162,
+  1992.
+
+\bibitem{ongaro_search_2014}
+D.~Ongaro and J.~Ousterhout.
+\newblock {\em In search of an understandable consensus algorithm (extended
+  version)}.
+\newblock 2014.
+
+\bibitem{rabaey_swarm_2011}
+J.~M. Rabaey.
+\newblock The swarm at the edge of the cloud-a new perspective on wireless.
+\newblock In {\em {VLSI} Circuits ({VLSIC}), 2011 Symposium on}, pages 6--8,
+  2011.
+
+\bibitem{rhea_pond:_2003}
+S.~C. Rhea, P.~R. Eaton, D.~Geels, H.~Weatherspoon, B.~Y. Zhao, and
+  J.~Kubiatowicz.
+\newblock Pond: The {OceanStore} prototype.
+\newblock In {\em {FAST}}, volume~3, pages 1--14, 2003.
+
+\bibitem{rhea_handling_2003}
+S.~C. Rhea, D.~Geels, T.~Roscoe, and J.~Kubiatowicz.
+\newblock {\em Handling churn in a {DHT}}.
+\newblock Computer Science Division, University of California, 2003.
+
+\bibitem{sears_segment-based_2009}
+R.~Sears and E.~Brewer.
+\newblock Segment-based recovery: write-ahead logging revisited.
+\newblock {\em Proceedings of the {VLDB} Endowment}, 2(1):490--501, 2009.
+
+\bibitem{stoica_chord:_2003}
+I.~Stoica, R.~Morris, D.~Liben-Nowell, D.~R. Karger, M.~F. Kaashoek, F.~Dabek,
+  and H.~Balakrishnan.
+\newblock Chord: a scalable peer-to-peer lookup protocol for internet
+  applications.
+\newblock {\em Networking, {IEEE}/{ACM} Transactions on}, 11(1):17--32, 2003.
+
+\bibitem{zhao_tapestry:_2004}
+B.~Zhao, L.~Huang, J.~Stribling, S.~Rhea, A.~Joseph, and J.~Kubiatowicz.
+\newblock Tapestry: A resilient global-scale overlay for service deployment.
+\newblock {\em {IEEE} Journal on Selected Areas in Communications},
+  22(1):41--53, Jan. 2004.
+
+\bibitem{zou_execution_2009}
+J.~Zou, S.~Matic, E.~A. Lee, T.~H. Feng, and P.~Derler.
+\newblock Execution strategies for {PTIDES}, a programming model for
+  distributed embedded systems.
+\newblock In {\em Real-Time and Embedded Technology and Applications Symposium,
+  2009. {RTAS} 2009. 15th {IEEE}}, pages 77--86. {IEEE}, 2009.
+
+\end{thebibliography}

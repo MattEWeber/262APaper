@@ -492,10 +492,9 @@ Below is a diagram for the overall architecture:
 In this section, we're going to elaborate on the algorithmic part of the project, which is our choices of concurrency control protocol and commit consensus protocol. We did strict two-phase locking and optimistic concurrency for concurrency control. We also did paxos and byzantine agreement for commit consensus protocol. We would explain in detail how we implement four algorithms in our project and compare the tradeoffs in this section. The benchmark results would be in the next section.
 
 \subsection{Strict Two-Phase Locking}
+In our first design of the system, 
+
 \begin{lstlisting}
-// Hello.java
-import javax.swing.JApplet;
-import java.awt.Graphics;
 
 public class Hello extends JApplet {
     public void paintComponent(Graphics g) {
