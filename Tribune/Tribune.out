@@ -6,7 +6,7 @@
 \BOOKMARK [2][-]{subsection.2.4}{Consensus Algorithms and Durability}{section.2}% 6
 \BOOKMARK [2][-]{subsection.2.5}{Routing in the GDP}{section.2}% 7
 \BOOKMARK [1][-]{section.3}{System Architecture}{}% 8
-\BOOKMARK [2][-]{subsection.3.1}{Optimistic vs Concurrency Control}{section.3}% 9
+\BOOKMARK [2][-]{subsection.3.1}{Optimistic vs Locking Concurrency Control}{section.3}% 9
 \BOOKMARK [2][-]{subsection.3.2}{Tribune's Design}{section.3}% 10
 \BOOKMARK [2][-]{subsection.3.3}{Pseudo-Paxos and Pseudo-Byzantine Agreement}{section.3}% 11
 \BOOKMARK [1][-]{section.4}{Algorithms and Implementation}{}% 12
