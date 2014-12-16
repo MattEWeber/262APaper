@@ -190,20 +190,6 @@ We implement the
 
 In this section we present Tribune's performance when given a variety of transaction workloads. All transaction workloads are randomly generated and execute concurrently in Tribune. We first evaluate a suite of long high conflict transactions, next we present the performance of a sample bank application that runs a high volume of short transactions between accounts, and finish with a high volume test of reads to a small set of memory locations to simulate a memory hotspot. 
 
-
-
-\subsection{Experimental Setup}
-
-A graphic representation of our setup can be seen in Figure~/ref{test-setup}. We elected to run Tribune on three Macbook Pros as opposed to a cluster because we need easy physical access to the machines and admin status to run a Precision Time Protocol Daemon. Specifically we ran ptpd2, an open source implementation of IEEE1588. Using a Linksys router to establish a local area network over ethernet, we established a 10 $\mu$s average offset from the master clock to the slaves. Going six standard deviations from the mean, we determined a 700 $\mu$s value for the clock error in our implementation of TrueTime would upper bound the actual clock error in almost every case.
-
-As for hardware and operating system specifications, the IEEE 1588 master machine in the upper left of Figure~/ref{test-setup} has OS X Version 10.9.3, 2.4 GHz Intel Core i7, and 8 GB 1600 MHz DDR3. It runs the ptpd master and the consensus leader because it is our strongest machine  The laptop at the bottom of the diagram has OS X Version 10.10.1, 2.5 GHz Intel Core i5, and 4 GB 1600 MHz DDR3, and the one in the upper right has OS X Version 10.9.3, 2.3GHz Intel Core i7, and 16 GB 1600 MHz DDR3. Note that all Client programs run on the machine in the upper right. It evenly distributes client program requests between each of the two responders. Transaction running time is measured on this laptop.
-
-The final component of our test setup is a transaction GUID namer running on a server in the same building on UC Berkeley's EECS department network. Laptops connect to it through WiFi routers in our lab area. Ping time to the server is only slightly longer than to the LAN laptops so we expect this to have had a negligible impact on performance.
-
-\subsection{High Conflict Transactions}
-
-\textbf{talk about how we only record time for committing transactions}
-
 \begin{figure}[!b]
   \begin{center}
     \includegraphics[width=3.5in]{Images/test-setup.png}
@@ -213,6 +199,20 @@ The final component of our test setup is a transaction GUID namer running on a s
   \label{test-setup}
 \end{figure}
 
+\subsection{Experimental Setup}
+
+A graphic representation of our setup can be seen in Figure~\ref{test-setup}. We elected to run Tribune on three Macbook Pros as opposed to a cluster because we need easy physical access to the machines and admin status to run a Precision Time Protocol Daemon. Specifically we ran ptpd2, an open source implementation of IEEE1588. Using a Linksys router to establish a local area network over ethernet, we established a 10 $\mu$s average offset from the master clock to the slaves. Going six standard deviations from the mean, we determined a 700 $\mu$s value for the clock error in our implementation of TrueTime would upper bound the actual clock error in almost every case.
+
+As for hardware and operating system specifications, the IEEE 1588 master machine in the upper left of Figure~/ref{test-setup} has OS X Version 10.9.3, 2.4 GHz Intel Core i7, and 8 GB 1600 MHz DDR3. It runs the ptpd master and the consensus leader because it is our strongest machine  The laptop at the bottom of the diagram has OS X Version 10.10.1, 2.5 GHz Intel Core i5, and 4 GB 1600 MHz DDR3, and the one in the upper right has OS X Version 10.9.3, 2.3GHz Intel Core i7, and 16 GB 1600 MHz DDR3. Note that all Client programs run on the machine in the upper right. It evenly distributes client program requests between each of the two responders. Transaction running time is measured on this laptop using a call to Java 8's {\tt Time.Instant.Now() } function before sending the transaction to a responder and after receiving a "commit" or "abort" message from Tribune.
+
+The final component of our test setup is a transaction GUID namer running on a server in the same building on UC Berkeley's EECS department network. Laptops connect to it through WiFi routers in our lab area. Ping time to the server is only slightly longer than to the LAN laptops so we expect this to have had a negligible impact on performance.
+
+\subsection{High Conflict Transactions}
+
+
+Our first benchmark consists of very long transactions with a high probability of accessing the same memory address for reads and writes. Therefore for both optimistic concurrency and locking control we expect to have a high percentage of aborts when many transactions are running on Responders. The specific format of the experiment shown in Figures ~\ref{1-time} and ~\ref{1-commit} is to run a variable number of clients running from 1 to 10 concurrently in Tribune. This means we begin the trial with one client running and when it finishes we start two clients running, and so on. The name "Locking Paxos" refers to lock table based concurrency control with Paxos replication, "Optimistic Byzantine" refers to optimistic concurrency control with Byzantine replication, and the other runs are configurations of those features that correspond to the names in the legend. We use the same naming convention for the other experiments. Each client runs a list of three transactions, each consisting of one thousand commands to be executed. Because many transactions abort shortly after starting, we only report the running time in Figure ~\ref{1-time} for transactions that commit.
+
+\textbf{ analyze graph}
 
 \begin{figure}[!b]
   \begin{center}
@@ -269,8 +269,8 @@ The final component of our test setup is a transaction GUID namer running on a s
 Spanner-style semantics concerning time are most certainly not the only option for a CAAPI in the GDP. PTIDES \cite{zou_execution_2009} provides both an execution model and a simulation environment for time-aware computation. Rather than dealing with transactions, PTIDES determines the execution of atomic events and enforces that sensor-to-actuator deadlines are met. As an advantage of tight time synchronization and atomic events, PTIDES can define a deterministic time-ordered merge between two input streams by simply waiting out the clock uncertainty before writing. This policy guarantees no future event could be timestamped further in the past than the written value.
 
 Reconsidering our implementation choices now the project is complete, 
-%\testbf{THREADS ARE EVIL}
-
+\textbf{THREADS ARE EVIL}
+\textbf{Finish this section!}
 
 \section{Conclusion}
 
