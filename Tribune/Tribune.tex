@@ -133,13 +133,22 @@ Data must be routed to Tribune in the GDP through an overlay network. Oceanstore
 
 
 \section{System Architecture}
-Our first design of system emulates a simplified version of Google Spanner without any "distributed transaction". Because we opt not to handle "distributed transactions", we do not implement the transaction manager which coordinates two phase commits between different Paxos groups. Our first design of system assumes an one-paxos-group environment so we only implement the lock manager at the leader replica.
+
+\subsection{Tribune's Design}
+Our current design of Tribune (shown in Figure~\ref{Tribune_Arch}) implements a simplified version of Google Spanner without any "distributed transaction". Because we opt not to handle "distributed transactions", we do not implement the transaction manager which coordinates two phase commits between different Paxos groups. Our first design of system assumes an one-paxos-group environment so we only implement the lock manager at the leader replica.
 
 The responder receives transactions from client applications. It parses each operation line by line and acquires read locks for all data required for the transaction. The responder buffers writes locally. When all the transaction operation finishes, the responder tries to acquire write locks for the locally modified data. If the attempt turns out successful, the responder will try to commit the transaction at the leader. 
 
 We only implement the necessary components for read-write transactions. So all transactions would go through the leader replica to validate their respective lock leases before committing via paxos protocol. If the validation is successful, the leader would go through all paxos phases and return the final transaction status (abort or commit) back to responder. The responder will return the transaction status back to client apps.
 
-%Below is a diagram for the overall architecture:
+\subsection{Optimistic Concurrency Control}
+
+\subsection{Pseudo-Paxos and Pseudo-Byzantine Agreement}
+
+Our original intention for experimentation with Tribune was to integrate an open source Paxos and Byzantine Agreement package into the system, but in the final iteration of development we decided to simulate consensus algorithms instead. Although a variety of Paxos (and Raft \cite{ongaro_search_2014} ) implementations exist, we were unable to find a  Byzantine Agreement package. Even if we had found a project for the two algorithms, the full protocols would have features our Tribune implementation is unable to deal with. Specifically, our lock table makes the simplifying assumption that the leader does not change. Considering that Paxos leaders are long lived (10s) in Spanner, a permanent leader doesn't significantly impact the validity of our experimentation, but would leave a true Paxos/Raft library out of sync with Tribune. Instead, Tribune simulates the data replication and consensus work of Paxos and Byzantine agreement, a procedure we term Pseudo-Paxos and Pseudo-Byzantine Agreement.
+
+As part of consensus simulation, we had to deal first-hand with a non-obvious implementation detail that arises in the practical implementation of Paxos: out-of-date replicas. We took inspiration from Chubby's solution to the problem  \cite{chandra_paxos_2007} by using sequence numbers to catch a replica back up to the current state of the system when possible. It would be impractical to maintain a permanent map between paxos sequence numbers and changes to the database, so instead we truncate the log at a fixed distance in the past. If a replica is further behind than the end of the log, it asks for a snapshot of the current state of the system from the leader, and achieves up-to-date status.
+
 
 \textbf{//then talk about modifications on the first version to incorporate optimistic concurrency control and byzantine agreement}
 
@@ -179,16 +188,6 @@ if incoming transaction requests a read lock and current lock holder is a write:
 
 \end{lstlisting}
 
-\subsection{Optimistic Concurrency Control}
-
-\subsection{Pseudo-Paxos and Pseudo-Byzantine Agreement}
-
-Our original intention for experimentation with Tribune was to integrate an open source Paxos and Byzantine Agreement package into the system, but in the final iteration of development we decided to simulate consensus algorithms instead. Although a variety of Paxos (and Raft \cite{ongaro_search_2014} ) implementations exist, we were unable to find a  Byzantine Agreement package. Even if we had found a project for the two algorithms, the full protocols would have features our Tribune implementation is unable to deal with. Specifically, our lock table makes the simplifying assumption that the leader does not change. Considering that Paxos leaders are long lived (10s) in Spanner, a permanent leader doesn't significantly impact the validity of our experimentation, but would leave a true Paxos/Raft library out of sync with Tribune. Instead, Tribune simulates the data replication and consensus work of Paxos and Byzantine agreement, a procedure we term Pseudo-Paxos and Pseudo-Byzantine Agreement.
-
-As part of consensus simulation, we had to deal first-hand with a non-obvious implementation detail that arises in the practical implementation of Paxos: out-of-date replicas. We took inspiration from Chubby's solution to the problem  \cite{chandra_paxos_2007} by using sequence numbers to catch a replica back up to the current state of the system when possible. It would be impractical to maintain a permanent map between paxos sequence numbers and changes to the database, so instead we truncate the log at a fixed distance in the past. If a replica is further behind than the end of the log, it asks for a snapshot of the current state of the system from the leader, and achieves up-to-date status.
-
-
-\subsection{Remote Method Invocation}
 
 \section{Experiments and Results}
 
