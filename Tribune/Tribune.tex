@@ -210,9 +210,11 @@ The final component of our test setup is a transaction GUID namer running on a s
 \subsection{High Conflict Transactions}
 
 
-Our first benchmark consists of very long transactions with a high probability of accessing the same memory address for reads and writes. Therefore for both optimistic concurrency and locking control we expect to have a high percentage of aborts when many transactions are running on Responders. The specific format of the experiment shown in Figures ~\ref{1-time} and ~\ref{1-commit} is to run a variable number of clients running from 1 to 10 concurrently in Tribune. This means we begin the trial with one client running and when it finishes we start two clients running, and so on. The name "Locking Paxos" refers to lock table based concurrency control with Paxos replication, "Optimistic Byzantine" refers to optimistic concurrency control with Byzantine replication, and the other runs are configurations of those features that correspond to the names in the legend. We use the same naming convention for the other experiments. Each client runs a list of three transactions, each consisting of one thousand commands to be executed. Because many transactions abort shortly after starting, we only report the running time in Figure ~\ref{1-time} for transactions that commit.
+Our first benchmark consists of very long transactions with a high probability of accessing the same memory address for reads and writes. Therefore for both optimistic concurrency and locking control we expect to have a high percentage of aborts when many transactions are running on Responders. The specific format of the experiment shown in Figures~\ref{1-time} and~\ref{1-commit} is to run a variable number of clients running from 1 to 10 concurrently in Tribune. This means we begin the trial with one client running and when it finishes we start two clients running, and so on. The name "Locking Paxos" refers to lock table based concurrency control with Paxos replication, "Optimistic Byzantine" refers to optimistic concurrency control with Byzantine replication, and the other runs are configurations of those features that correspond to the names in the legend. We use the same naming convention for the other experiments. Each client runs a list of three transactions, each consisting of one thousand commands to be executed. Because many transactions abort shortly after starting, we only report the running time in Figure~\ref{1-time} for transactions that commit.
 
-\textbf{ analyze graph}
+As expected, the Byzantine configurations were slower on average than the Paxos setups. The mean transaction execution times were also consistent 
+
+Note that the abort rate in Figure~\ref{1-commit} is quite low for larger numbers of transactions dropping below 20\% in some cases. As a general trend within a particular system configuration, the commit rate decreases as the contention increases. However, it's very surprising that the optimistic approaches resulted in fewer aborts than the lock based ones - as one would typically expect locking free reads and writes in high conflict transactions to consistently step on each other. We give two possible explanations for why this happened. First, the failure mode of optimistic concurrency in high conflict scenarios is mitigated in our experiment because there are only two replicas where a read might make place, and given the assumptions of our experiment, neither one is likely to be considerably out-of-date. Second, wound wait deadlock resolution in the lock table may overzealously abort transactions that ought to have been able to commit in an optimistic scenario.
 
 \begin{figure}[!b]
   \begin{center}
@@ -232,6 +234,16 @@ Our first benchmark consists of very long transactions with a high probability o
   \label{1-commit}
 \end{figure}
 
+\subsection{Bank Application}
+
+The second benchmark focuses on a more realistic application where data values might be important: a bank scenario similar to an ATM or teller for bank. Like the high conflict experiment, we generate random workloads, but for each client, we reduce the number of commands for each transaction inside the client from 1000 to 20. To compensate we start 10 times as many clients on each iteration of the experiment and run 10 transactions per client. We start with ten client apps and increment by ten for every run up to one hundred. The objective is to present a realistic use case where conflicts over data appear, but we aren't forced to abort transactions as often as in the high conflict scenario.
+
+
+
+It is very odd that the mean execution time of Optimistic Paxos is slower than Optimistic Byzantine in Figure~\ref{2-time}, considering that Byzantine agreement is simulated in Tribune at this stage by doing strictly more work than Optimistic Paxos in the form of pairwise communication between replicas. Perhaps it was a fluke of the random test generation or nondeterministic network behavior. However it is no surprise that Locking Byzantine is consistently the slowest, considering that anytime the lock table is modified Byzantine agreement requires pairwise communication to keep the Leader honest.
+
+The commit percent is much higher for this experiment than high conflict. Now, the locking schemes seem to have marginally higher commit rates than the 
+
 \begin{figure}[!b]
   \begin{center}
     \includegraphics[width=3.5in]{Images/2-time.png}
@@ -246,6 +258,11 @@ Our first benchmark consists of very long transactions with a high probability o
     \includegraphics[width=3.5in]{Images/2-commit.png}
   \end{center}
 
+\subsection{Hot Spot Reads}
+\textbf{Mention the log scale on the last time graph. Also mention that the commit rate for the third test is 100 percent }
+
+\section{Future Work}
+
   \caption{\small Bank Application: Commit Percentage }
   \label{2-commit}
 \end{figure}
@@ -259,12 +276,9 @@ Our first benchmark consists of very long transactions with a high probability o
   \label{3-time}
 \end{figure}
 
-\subsection{Bank Application}
 
-\subsection{Hot Spot Reads}
-\textbf{Mention the log scale on the last time graph. Also mention that the commit rate for the third test is 100 percent }
 
-\section{Future Work}
+
 
 Spanner-style semantics concerning time are most certainly not the only option for a CAAPI in the GDP. PTIDES \cite{zou_execution_2009} provides both an execution model and a simulation environment for time-aware computation. Rather than dealing with transactions, PTIDES determines the execution of atomic events and enforces that sensor-to-actuator deadlines are met. As an advantage of tight time synchronization and atomic events, PTIDES can define a deterministic time-ordered merge between two input streams by simply waiting out the clock uncertainty before writing. This policy guarantees no future event could be timestamped further in the past than the written value.
 
