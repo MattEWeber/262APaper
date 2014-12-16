@@ -8,7 +8,7 @@
 \BOOKMARK [1][-]{section.3}{System Architecture}{}% 8
 \BOOKMARK [1][-]{section.4}{Algorithms and Implementation}{}% 9
 \BOOKMARK [2][-]{subsection.4.1}{Programming Tools}{section.4}% 10
-\BOOKMARK [2][-]{subsection.4.2}{Initalization}{section.4}% 11
+\BOOKMARK [2][-]{subsection.4.2}{Initialization}{section.4}% 11
 \BOOKMARK [2][-]{subsection.4.3}{Strict Two-Phase Locking}{section.4}% 12
 \BOOKMARK [2][-]{subsection.4.4}{Optimistic Concurrency Control}{section.4}% 13
 \BOOKMARK [2][-]{subsection.4.5}{Initialization}{section.4}% 14
