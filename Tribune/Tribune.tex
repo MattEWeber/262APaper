@@ -238,11 +238,13 @@ Note that the abort rate in Figure~\ref{1-commit} is quite low for larger number
 
 The second benchmark focuses on a more realistic application where data values might be important: a bank scenario similar to an ATM or teller for bank. Like the high conflict experiment, we generate random workloads, but for each client, we reduce the number of commands for each transaction inside the client from 1000 to 20. To compensate we start 10 times as many clients on each iteration of the experiment and run 10 transactions per client. We start with ten client apps and increment by ten for every run up to one hundred. The objective is to present a realistic use case where conflicts over data appear, but we aren't forced to abort transactions as often as in the high conflict scenario.
 
-
-
 It is very odd that the mean execution time of Optimistic Paxos is slower than Optimistic Byzantine in Figure~\ref{2-time}, considering that Byzantine agreement is simulated in Tribune at this stage by doing strictly more work than Optimistic Paxos in the form of pairwise communication between replicas. Perhaps it was a fluke of the random test generation or nondeterministic network behavior. However it is no surprise that Locking Byzantine is consistently the slowest, considering that anytime the lock table is modified Byzantine agreement requires pairwise communication to keep the Leader honest.
 
-The commit percent is much higher for this experiment than high conflict. Now, the locking schemes seem to have marginally higher commit rates than the 
+The commit percent is much higher for this experiment than for the high conflict run. Now, the lock-based schemes seem to have marginally higher commit rates than the optimistic ones.
+
+\subsection{Hot Spot Reads}
+Our last benchmarking consists of many clients trying to read values that already exist in data storage.  We are interested to know what will happen when there are many reads for a few memory addresses and no writes at all except during initialization. This idea for this kind of benchmark came from the common case on media websites like Youtube, Google Play, or Spotify where millions of people watch or listen to (but don't write)  a specific memory location at the same time. Ideally, reads in this scenario should have minimal performance impact towards each other since reads alone cannot cause a transaction to abort. 
+In the test scenario, an initalization client writes data to one specifically memory address, then the rest of the clients simultaneously read from that memory address once the first client is done. Like the Bank experiment, the simulation started with ten as the number of concurrent clients and iterated up to one hundred clients by intervals of ten. The result is shown in Figure ~\ref{3-time} on a log scale graph to spread out the three runs near each other on the bottom. The running times are so similar, the log scale doesn't make much of a difference to differentiate them. The Locking Byzantine agreement configuration is an order of magnitude slower than the others because it must perform substantially higher Note that the commit percent graph is omitted for this trial because 100\% of transactions committed successfully.
 
 \begin{figure}[!b]
   \begin{center}
@@ -258,10 +260,7 @@ The commit percent is much higher for this experiment than high conflict. Now, t
     \includegraphics[width=3.5in]{Images/2-commit.png}
   \end{center}
 
-\subsection{Hot Spot Reads}
-\textbf{Mention the log scale on the last time graph. Also mention that the commit rate for the third test is 100 percent }
 
-\section{Future Work}
 
   \caption{\small Bank Application: Commit Percentage }
   \label{2-commit}
@@ -278,6 +277,8 @@ The commit percent is much higher for this experiment than high conflict. Now, t
 
 
 
+
+\section{Future Work}
 
 
 Spanner-style semantics concerning time are most certainly not the only option for a CAAPI in the GDP. PTIDES \cite{zou_execution_2009} provides both an execution model and a simulation environment for time-aware computation. Rather than dealing with transactions, PTIDES determines the execution of atomic events and enforces that sensor-to-actuator deadlines are met. As an advantage of tight time synchronization and atomic events, PTIDES can define a deterministic time-ordered merge between two input streams by simply waiting out the clock uncertainty before writing. This policy guarantees no future event could be timestamped further in the past than the written value.
