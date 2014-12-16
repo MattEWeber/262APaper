@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.15 (TeX Live 2014) (preloaded format=pdflatex 2014.6.20)  16 DEC 2014 00:06
+This is pdfTeX, Version 3.14159265-2.6-1.40.15 (TeX Live 2014) (preloaded format=pdflatex 2014.6.20)  16 DEC 2014 00:18
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -307,7 +307,7 @@ File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <12> not available
 (Font)              Font shape `OT1/ptm/b/n' tried instead on input line 48.
 
-<Images/Database_CAAPI.png, id=97, 892.33376pt x 513.92pt>
+<Images/Database_CAAPI.png, id=105, 892.33376pt x 513.92pt>
 File: Images/Database_CAAPI.png Graphic file (type png)
 
 <use Images/Database_CAAPI.png>
@@ -322,7 +322,7 @@ Overfull \hbox (15.80905pt too wide) in paragraph at lines 60--61
 
 
 ]
-<Images/TrueTime.png, id=115, 316.18124pt x 98.3675pt>
+<Images/TrueTime.png, id=123, 316.18124pt x 98.3675pt>
 File: Images/TrueTime.png Graphic file (type png)
 
 <use Images/TrueTime.png>
@@ -333,7 +333,7 @@ Overfull \hbox (15.80905pt too wide) in paragraph at lines 74--76
  [] 
  []
 
-<Images/Spanner_Arch.png, id=118, 308.15125pt x 248.93pt>
+<Images/Spanner_Arch.png, id=126, 308.15125pt x 248.93pt>
 File: Images/Spanner_Arch.png Graphic file (type png)
 
 <use Images/Spanner_Arch.png>
@@ -345,107 +345,111 @@ Overfull \hbox (15.80905pt too wide) in paragraph at lines 86--87
  []
 
 
-Underfull \hbox (badness 1430) in paragraph at lines 97--98
+Underfull \hbox (badness 1430) in paragraph at lines 101--102
 \OT1/ptm/m/n/10 shares com-po-nents and ter-mi-nol-ogy with Chubby [[]],
  []
 
 [2 <./Images/Database_CAAPI.png> <./Images/TrueTime.png> <./Images/Spanner_Arch
-.png>] <Images/Tribune_Arch.png, id=152, 449.68pt x 216.81pt>
+.png>] <Images/Tribune_Arch.png, id=161, 449.68pt x 216.81pt>
 File: Images/Tribune_Arch.png Graphic file (type png)
 
 <use Images/Tribune_Arch.png>
-Package pdftex.def Info: Images/Tribune_Arch.png used on input line 121.
+Package pdftex.def Info: Images/Tribune_Arch.png used on input line 127.
 (pdftex.def)             Requested size: 252.94499pt x 121.95532pt.
 
-Overfull \hbox (15.80905pt too wide) in paragraph at lines 121--122
+Overfull \hbox (15.80905pt too wide) in paragraph at lines 127--128
  [] 
  []
 
-LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <10> not available
-(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 130.
 [3 <./Images/Tribune_Arch.png>]
-LaTeX Font Info:    Try loading font information for OML+ptm on input line 154.
+LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <10> not available
+(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 144.
+LaTeX Font Info:    Try loading font information for OML+ptm on input line 160.
 
 
 (/usr/local/texlive/2014/texmf-dist/tex/latex/psnfss/omlptm.fd
 File: omlptm.fd 
 )
 LaTeX Font Info:    Font shape `OML/ptm/m/n' in size <10> not available
-(Font)              Font shape `OML/cmm/m/it' tried instead on input line 154.
+(Font)              Font shape `OML/cmm/m/it' tried instead on input line 160.
  [4]
-LaTeX Font Info:    Try loading font information for OT1+pcr on input line 162.
+LaTeX Font Info:    Try loading font information for OT1+pcr on input line 168.
 
 
 (/usr/local/texlive/2014/texmf-dist/tex/latex/psnfss/ot1pcr.fd
 File: ot1pcr.fd 2001/06/04 font definitions for OT1/pcr.
 )
-<Images/test-setup.png, id=182, 503.8825pt x 345.29pt>
+<Images/test-setup.png, id=192, 503.8825pt x 345.29pt>
 File: Images/test-setup.png Graphic file (type png)
 
 <use Images/test-setup.png>
-Package pdftex.def Info: Images/test-setup.png used on input line 192.
+Package pdftex.def Info: Images/test-setup.png used on input line 198.
 (pdftex.def)             Requested size: 252.94499pt x 173.33476pt.
 
-Overfull \hbox (15.80905pt too wide) in paragraph at lines 192--193
+Overfull \hbox (15.80905pt too wide) in paragraph at lines 198--199
  [] 
  []
 
-[5 <./Images/test-setup.png>]
-<Images/1-time.png, id=203, 978.65625pt x 566.115pt>
+
+Underfull \vbox (badness 2418) has occurred while \output is active []
+
+ [5 <./Images/test-setup.png>] <Images/1-time.png, id=213, 978.65625pt x 566.11
+5pt>
 File: Images/1-time.png Graphic file (type png)
- <use Images/1-time.png>
-Package pdftex.def Info: Images/1-time.png used on input line 218.
+
+<use Images/1-time.png>
+Package pdftex.def Info: Images/1-time.png used on input line 224.
 (pdftex.def)             Requested size: 252.94499pt x 146.31396pt.
 
-Overfull \hbox (15.80905pt too wide) in paragraph at lines 218--219
+Overfull \hbox (15.80905pt too wide) in paragraph at lines 224--225
  [] 
  []
 
-<Images/1-commit.png, id=204, 960.58875pt x 574.145pt>
+<Images/1-commit.png, id=214, 960.58875pt x 574.145pt>
 File: Images/1-commit.png Graphic file (type png)
 
 <use Images/1-commit.png>
-Package pdftex.def Info: Images/1-commit.png used on input line 227.
+Package pdftex.def Info: Images/1-commit.png used on input line 233.
 (pdftex.def)             Requested size: 252.94499pt x 151.18402pt.
 
-Overfull \hbox (15.80905pt too wide) in paragraph at lines 227--228
+Overfull \hbox (15.80905pt too wide) in paragraph at lines 233--234
  [] 
  []
 
-[6 <./Images/1-time.png> <./Images/1-commit.png>]
-<Images/2-time.png, id=213, 942.52126pt x 547.04375pt>
+[6 <./Images/1-time.png>]
+<Images/2-time.png, id=223, 942.52126pt x 547.04375pt>
 File: Images/2-time.png Graphic file (type png)
  <use Images/2-time.png>
-Package pdftex.def Info: Images/2-time.png used on input line 249.
+Package pdftex.def Info: Images/2-time.png used on input line 255.
 (pdftex.def)             Requested size: 252.94499pt x 146.81062pt.
 
-Overfull \hbox (15.80905pt too wide) in paragraph at lines 249--250
+Overfull \hbox (15.80905pt too wide) in paragraph at lines 255--256
  [] 
  []
 
-<Images/2-commit.png, id=214, 926.46124pt x 505.89pt>
+<Images/2-commit.png, id=224, 926.46124pt x 505.89pt>
 File: Images/2-commit.png Graphic file (type png)
 
 <use Images/2-commit.png>
-Package pdftex.def Info: Images/2-commit.png used on input line 258.
+Package pdftex.def Info: Images/2-commit.png used on input line 264.
 (pdftex.def)             Requested size: 252.94499pt x 138.11281pt.
 
-Overfull \hbox (15.80905pt too wide) in paragraph at lines 258--259
+Overfull \hbox (15.80905pt too wide) in paragraph at lines 264--265
  [] 
  []
 
-<Images/3-time.png, id=215, 918.43124pt x 522.95375pt>
+<Images/3-time.png, id=225, 918.43124pt x 522.95375pt>
 File: Images/3-time.png Graphic file (type png)
  <use Images/3-time.png>
-Package pdftex.def Info: Images/3-time.png used on input line 269.
+Package pdftex.def Info: Images/3-time.png used on input line 275.
 (pdftex.def)             Requested size: 252.94499pt x 144.02419pt.
 
-Overfull \hbox (15.80905pt too wide) in paragraph at lines 269--270
+Overfull \hbox (15.80905pt too wide) in paragraph at lines 275--276
  [] 
  []
 
-[7 <./Images/2-time.png> <./Images/2-commit.png> <./Images/3-time.png>]
-Underfull \hbox (badness 1776) in paragraph at lines 284--287
+[7 <./Images/1-commit.png> <./Images/2-time.png> <./Images/2-commit.png>]
+Underfull \hbox (badness 1776) in paragraph at lines 290--293
 []\OT1/ptm/m/n/10 Reconsidering our im-ple-men-ta-tion choices now the
  []
 
@@ -455,44 +459,37 @@ Missing character: There is no © in font ptmr7t!
 Missing character: There is no Ã in font ptmr7t!
 Missing character: There is no ¶ in font ptmr7t!
 
-Underfull \hbox (badness 2512) in paragraph at lines 11--13
+Underfull \hbox (badness 2512) in paragraph at lines 17--19
 []\OT1/ptm/m/n/10 J. Blmer, M. Kalfane, R. Karp, M. Karpin-ski,
  []
 
 Missing character: There is no â in font ptmr7t!
 Missing character: There is no € in font ptmr7t!
 Missing character: There is no ™ in font ptmr7t!
-
-Underfull \hbox (badness 1721) in paragraph at lines 105--108
+[8 <./Images/3-time.png>]
+Underfull \hbox (badness 1721) in paragraph at lines 111--114
 \OT1/ptm/m/n/10 database sys-tems.  \OT1/ptm/m/it/10 ACM Trans. Database Syst.\
 OT1/ptm/m/n/10 ,
  []
 
-[8])
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 300.
+)
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 306.
  [9
 
 ]
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 300.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 306.
  (./Tribune.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 300.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 300.
-
-
-Package rerunfilecheck Warning: File `Tribune.out' has changed.
-(rerunfilecheck)                Rerun to get outlines right
-(rerunfilecheck)                or use package `bookmark'.
-
-Package rerunfilecheck Info: Checksums for `Tribune.out':
-(rerunfilecheck)             Before: D94ABCB98663AEE7A44FAAC31826CA7E;1420
-(rerunfilecheck)             After:  8B134E8D8B2B5D7A90DEFE542A700FBB;1421.
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 300.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 306.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 306.
+Package rerunfilecheck Info: File `Tribune.out' has not changed.
+(rerunfilecheck)             Checksum: A2D2CDB84EF8FE19BD0B64E95F9BEDD7;1557.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 306.
  ) 
 Here is how much of TeX's memory you used:
- 7017 strings out of 493117
- 103770 string characters out of 6135439
+ 7023 strings out of 493117
+ 103875 string characters out of 6135439
  226092 words of memory out of 5000000
- 10303 multiletter control sequences out of 15000+600000
+ 10306 multiletter control sequences out of 15000+600000
  26240 words of font info for 63 fonts, out of 8000000 for 9000
  1144 hyphenation exceptions out of 8191
  29i,8n,40p,1345b,1015s stack positions out of 5000i,500n,10000p,200000b,80000s
@@ -503,10 +500,10 @@ xlive/2014/texmf-dist/fonts/type1/urw/courier/ucrr8a.pfb></usr/local/texlive/20
 f-dist/fonts/type1/urw/times/utmb8a.pfb></usr/local/texlive/2014/texmf-dist/fon
 ts/type1/urw/times/utmr8a.pfb></usr/local/texlive/2014/texmf-dist/fonts/type1/u
 rw/times/utmri8a.pfb>
-Output written on Tribune.pdf (9 pages, 3641100 bytes).
+Output written on Tribune.pdf (9 pages, 3642186 bytes).
 PDF statistics:
- 277 PDF objects out of 1000 (max. 8388607)
- 244 compressed objects within 3 object streams
- 76 named destinations out of 1000 (max. 500000)
- 227 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 288 PDF objects out of 1000 (max. 8388607)
+ 255 compressed objects within 3 object streams
+ 79 named destinations out of 1000 (max. 500000)
+ 243 words of extra memory for PDF output out of 10000 (max. 10000000)
 

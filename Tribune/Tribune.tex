@@ -92,15 +92,21 @@ This paper is organized as follows: Section II provides background information o
 
 \section{Background}
 
-Tribune's primary role is to enforce database semantics on a multi-writer log. We chose the semantics of Google Spanner's read write transactions \cite{corbett_spanner:_2012} because Spanner provides a time-based external consistency guarantee and works at a global scale. External consistency establishes the invariant that if transaction A commits before transaction B begins as observed from the outside world, timestamp associated with transaction B in the database must be later than than A's timestamp. Spanner achieves this invariant through a combination of two phase locking within a Paxos group, time-aware two-phase commit between Paxos groups, and precise implementation of the TrueTime API as shown in Figure~\ref{TrueTime}. TrueTime establishes an ordering between timestamps that reflects error in clock synchronization, i.e. it is unknown whether a timestamp proceeds another unless the difference in the timestamps exceeds the known upper bound on the offset between clocks.
+Tribune's primary role is to enforce database semantics on a multi-writer log. We chose the semantics of Google Spanner's read write transactions \cite{corbett_spanner:_2012} because Spanner provides a time-based external consistency guarantee and works at a global scale.
+
+\subsection{Google Spanner}
+
+External consistency establishes the invariant that if transaction A commits before transaction B begins as observed from the outside world, timestamp associated with transaction B in the database must be later than than A's timestamp. Spanner achieves this invariant through a combination of two phase locking within a Paxos group, time-aware two-phase commit between Paxos groups, and precise implementation of the TrueTime API as shown in Figure~\ref{TrueTime}. TrueTime establishes an ordering between timestamps that reflects error in clock synchronization, i.e. it is unknown whether a timestamp proceeds another unless the difference in the timestamps exceeds the known upper bound on the offset between clocks.
 
 Spanner's high level architecture, shown in Figure~\ref{Spanner_Arch}, shares components and terminology with Chubby  \cite{chandra_paxos_2007}, Megastore \cite{baker_megastore:_2011}, and BigTable \cite{chang_bigtable:_2008}, all Google projects as well. In Spanner, the tablets that are associated with a particular data model run on a set of replicas in the same Paxos group. The primary responsibility of the Paxos leader is to replicate the state of writes that go through it across the group. The leader also acts as a bottleneck for all read write transactions, which allows it to maintain a lock table that reflects the status of transactions currently in flight. Clients that want to perform read write transactions must acquire locks through two phase commit, and deadlocks are prevented with wound wait \cite{wound_wait}. When a read write transaction needs to commit across paxos groups (a "distributed transaction"), one paxos leader steps up for the role of participant leader and runs a transaction manager to organize the two-phase commit. Spanner also supports read only transactions and read transactions (the two are actually distinct types in Spanner) that can be performed at any replica without going through the paxos leader.
 
 
-
-
 \subsection{Time Synchronization}
 Spanner uses a global network of atomic and gps clocks to achieve time synchronization. An advantage of establishing very accurate clocks with very low drift is that very little communication is needed to preserve synchrony. IEEE 1588, the Precision Time Protocol \cite{ratzel_toward_2012} presents an alternative, ip based mechanism to achieve synchronization on the order of microseconds across a wired local area network. Truetime is used in spanner to determine when to pick timestamps for transactions in two-phase commit and how long to hold locks after committing within a paxos group.  Note that without any kind of synchronization between clients, relativity makes it impossible to evaluate external consistency. The definition of external consistency requires that transactions outside the system exist on a shared timeline (because they must be comparable) which implies some way to compare times at two locations, whether quantitative or logical \cite{lamport_time_1978}.
+
+
+\subsection{Optimistic Concurrency}
+The work of \cite{adya_efficient_1995} introduces an alternative to the lock table based concurrency control used in the majority of database systems including Spanner. Rather than officially communicate to the system as a whole that a transaction needs to read or write a particular value, optimistic concurrency performs reads and writes immediately wherever it is most efficient (potentially a local machine in a distributed system) without announcing its intention. Only when the transaction is finished does the entire system validate the correctness of a transaction in the context of external consistency and serialization with two phase commit. Assuming conflicts are rare, optimistic concurrency offers the potential to be significantly faster than the locking approach.
 
 
 \subsection{Consensus Algorithms and Durability}
@@ -127,7 +133,7 @@ Data must be routed to Tribune in the GDP through an overlay network. Oceanstore
 
 
 \section{System Architecture}
-Our first design of system emulates a simplified version of Google Spanner without any \textbf{ "distributed transaction"}. Because we opt not to handle \textbf{"distributed transactions"}, we do not implement the transaction manager which coordinates two phase commits between different Paxos groups. Our first design of system assumes an one-paxos-group environment so we only implement the lock manager at the leader replica.
+Our first design of system emulates a simplified version of Google Spanner without any "distributed transaction". Because we opt not to handle "distributed transactions", we do not implement the transaction manager which coordinates two phase commits between different Paxos groups. Our first design of system assumes an one-paxos-group environment so we only implement the lock manager at the leader replica.
 
 The responder receives transactions from client applications. It parses each operation line by line and acquires read locks for all data required for the transaction. The responder buffers writes locally. When all the transaction operation finishes, the responder tries to acquire write locks for the locally modified data. If the attempt turns out successful, the responder will try to commit the transaction at the leader. 
 
