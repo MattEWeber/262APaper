@@ -159,16 +159,18 @@ RMI also presents a naming problem. Surprisingly, RMI does not support a remote 
 \subsection{Initalization}
 
 \subsection{Strict Two-Phase Locking}
-\begin{lstlisting}
-// Hello.java
-import javax.swing.JApplet;
-import java.awt.Graphics;
+In our first design of the system, we implement a lock manager to enforce strict two-phase locking in one Paxos group scenario. The lock manager keeps track of three data structures: a map from integer keys to the current lock holder(s) called lockMap, a map from the transaction IDs to their birthdates called transactionBirthdateMap and a a map from interger keys to all transactions waiting to get the lock for the key called waitingTransactionMap. We use these data structures to store information required for the wound wait deadlock resolution algorithm,  the lock lease killer and the validation of transactions. 
 
-public class Hello extends JApplet {
-    public void paintComponent(Graphics g) {
-        g.drawString("Hello, world!", 65, 95);
-    }    
-}
+As mentioned above, the lock manager has three major responsibilies: prevents any deadlock in acquiring locks, kills existing lock leases that already expired and validates the locks of a transaction trying to commit. Validation of locks goes through all locks held by the transaction intending to commit and checks that the locks of the correct access mode are still present in the lockMap and have not expired. The lock lease killer goes through the lockMap at regular interval to kill already expired lock leases and wake up the waiting transaction(s) get the lock for a specific key. The most complicated part  of lock table is the implementation of wound wait algorithm. For better explanation, the psudo-code for wound wait algorithm is specified below:
+\begin{lstlisting}
+If lock is free:
+	incoming transaction acquires the lock
+if incoming transaction requests a read lock and all current lock holders are reads:
+	incoming transaction acquires the lock	
+if incoming transaction requests a read lock and current lock holder is a write:
+	if current lock holder is older: incoming transaction waits
+	else kill the current lock holder and incoming transaction acquires the lock
+
 \end{lstlisting}
 
 \subsection{Optimistic Concurrency Control}
