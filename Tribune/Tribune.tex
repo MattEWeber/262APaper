@@ -92,15 +92,21 @@ This paper is organized as follows: Section II provides background information o
 
 \section{Background}
 
-Tribune's primary role is to enforce database semantics on a multi-writer log. We chose the semantics of Google Spanner's read write transactions \cite{corbett_spanner:_2012} because Spanner provides a time-based external consistency guarantee and works at a global scale. External consistency establishes the invariant that if transaction A commits before transaction B begins as observed from the outside world, timestamp associated with transaction B in the database must be later than than A's timestamp. Spanner achieves this invariant through a combination of two phase locking within a Paxos group, time-aware two-phase commit between Paxos groups, and precise implementation of the TrueTime API as shown in Figure~\ref{TrueTime}. TrueTime establishes an ordering between timestamps that reflects error in clock synchronization, i.e. it is unknown whether a timestamp proceeds another unless the difference in the timestamps exceeds the known upper bound on the offset between clocks.
+Tribune's primary role is to enforce database semantics on a multi-writer log. We chose the semantics of Google Spanner's read write transactions \cite{corbett_spanner:_2012} because Spanner provides a time-based external consistency guarantee and works at a global scale.
+
+\subsection{Google Spanner}
+
+External consistency establishes the invariant that if transaction A commits before transaction B begins as observed from the outside world, timestamp associated with transaction B in the database must be later than than A's timestamp. Spanner achieves this invariant through a combination of two phase locking within a Paxos group, time-aware two-phase commit between Paxos groups, and precise implementation of the TrueTime API as shown in Figure~\ref{TrueTime}. TrueTime establishes an ordering between timestamps that reflects error in clock synchronization, i.e. it is unknown whether a timestamp proceeds another unless the difference in the timestamps exceeds the known upper bound on the offset between clocks.
 
 Spanner's high level architecture, shown in Figure~\ref{Spanner_Arch}, shares components and terminology with Chubby  \cite{chandra_paxos_2007}, Megastore \cite{baker_megastore:_2011}, and BigTable \cite{chang_bigtable:_2008}, all Google projects as well. In Spanner, the tablets that are associated with a particular data model run on a set of replicas in the same Paxos group. The primary responsibility of the Paxos leader is to replicate the state of writes that go through it across the group. The leader also acts as a bottleneck for all read write transactions, which allows it to maintain a lock table that reflects the status of transactions currently in flight. Clients that want to perform read write transactions must acquire locks through two phase commit, and deadlocks are prevented with wound wait \cite{wound_wait}. When a read write transaction needs to commit across paxos groups (a "distributed transaction"), one paxos leader steps up for the role of participant leader and runs a transaction manager to organize the two-phase commit. Spanner also supports read only transactions and read transactions (the two are actually distinct types in Spanner) that can be performed at any replica without going through the paxos leader.
 
 
-
-
 \subsection{Time Synchronization}
 Spanner uses a global network of atomic and gps clocks to achieve time synchronization. An advantage of establishing very accurate clocks with very low drift is that very little communication is needed to preserve synchrony. IEEE 1588, the Precision Time Protocol \cite{ratzel_toward_2012} presents an alternative, ip based mechanism to achieve synchronization on the order of microseconds across a wired local area network. Truetime is used in spanner to determine when to pick timestamps for transactions in two-phase commit and how long to hold locks after committing within a paxos group.  Note that without any kind of synchronization between clients, relativity makes it impossible to evaluate external consistency. The definition of external consistency requires that transactions outside the system exist on a shared timeline (because they must be comparable) which implies some way to compare times at two locations, whether quantitative or logical \cite{lamport_time_1978}.
+
+
+\subsection{Optimistic Concurrency}
+The work of \cite{adya_efficient_1995} introduces an alternative to the lock table based concurrency control used in the majority of database systems including Spanner. Rather than officially communicate to the system as a whole that a transaction needs to read or write a particular value, optimistic concurrency performs reads and writes immediately wherever it is most efficient (potentially a local machine in a distributed system) without announcing its intention. Only when the transaction is finished does the entire system validate the correctness of a transaction in the context of external consistency and serialization with two phase commit. Assuming conflicts are rare, optimistic concurrency offers the potential to be significantly faster than the locking approach.
 
 
 \subsection{Consensus Algorithms and Durability}
@@ -125,12 +131,9 @@ Data must be routed to Tribune in the GDP through an overlay network. Oceanstore
   \label{Tribune_Arch}
 \end{figure}
 
-\section{Background}
-
 
 \section{System Architecture}
- \textbf{ARCHITECTURE PICTURES GO HERE!!!}
-Our first design of system emulates a simplified version of Google Spanner without any \textbf{ "distributed transaction"}. Because we opt not to handle \textbf{"distributed transactions"}, we do not implement the transaction manager which coordinates two phase commits between different Paxos groups. Our first design of system assumes an one-paxos-group environment so we only implement the lock manager at the leader replica.
+Our first design of system emulates a simplified version of Google Spanner without any "distributed transaction". Because we opt not to handle "distributed transactions", we do not implement the transaction manager which coordinates two phase commits between different Paxos groups. Our first design of system assumes an one-paxos-group environment so we only implement the lock manager at the leader replica.
 
 The responder receives transactions from client applications. It parses each operation line by line and acquires read locks for all data required for the transaction. The responder buffers writes locally. When all the transaction operation finishes, the responder tries to acquire write locks for the locally modified data. If the attempt turns out successful, the responder will try to commit the transaction at the leader. 
 
@@ -155,6 +158,11 @@ As shown in Figure~\ref{Tribune_Arch}, client processes need to establish a conn
 However, RMI was not a perfect solution. The RMI server that is started for each registered object does not use a thread pool; it simply forks off a new thread whenever it gets a connection. The Sun implementation of RMI exposes a parameter for the number of TCP connections that can be ongoing at once, but this doesn't limit the number of worker threads that can be alive in the system at a given time. Therefore with a sufficiently large number of clients, spawning an arbitrarily large number of threads the RMI server may be ill-conditioned. Switching to SEDA \cite{welsh_seda:_2001} for future work, would alleviate this problem, but significantly change our programming model.
 
 RMI also presents a naming problem. Surprisingly, RMI does not support a remote rmiregistry where objects can be found directly by registration name. A remote object may only be registered on a local rmiregistry server with a name of the form "\textless{}ip address of host machine\textgreater{}/\textless{}registration name\textgreater{}".  Since our performance evaluation was performed on machines without static ip addresses, we potentially faced an addressing nightmare where the ip address of remote object s would change sporadically. To address this issue, we implemented a naming service over RMI we called Remote Registry, that maps a "\textless{}registration name\textgreater{}" to a full network-ready string of the form "//\textless{}ip address of host machine\textgreater{}/\textless{}registration name\textgreater{}". With Remote Registry we could publish not only the location of an object when its ip address changed, but also the availability of resources during initialization.
+
+\subsection{Initialization}
+Our team drastically underestimated the problem of initializing Tribune, but we ultimately developed a solution. Both Responders and the Leader replica from Figure~\ref{Tribune_Arch} depend on other components to correctly respond to RMI calls. The problem we encountered was that it is insufficient for a component to be ready to respond to RMI calls, it must also be ready to service requests which themselves may involve RMI calls on uninitialized system components.
+
+Tribune's solution uses the remote registry described in the previous section to address this issue. The first step of initialization is to clear the remote registry. If we enforce the invariant that a service only register itself in the remote registry when it is fully initialized and ready to service requests, other components can poll the remote registry in initialization to check their dependencies. Fortunately, Tribune's dependency graph is acyclic because Replicas can always register with no dependencies. From that starting point, the leader replica can initialize (being cognizant of the fact it is already registered as a Replica), which allows Responders to begin. Finally when the appropriate Responder is registered, a Client application can begin requesting the Responder to perform its transactions.
 
 \subsection{Strict Two-Phase Locking}
 In our first design of the system, we implement a lock manager to enforce strict two-phase locking in one Paxos group scenario. The lock manager keeps track of four data structures: a map from integer keys to the current lock holder(s) called lockMap, a map from transaction IDs to their birthdates called transactionBirthdateMap, a map from interger keys to all transactions waiting to get the lock for the key called waitingTransactionMap and a map from committing transaction IDs to the locks they are holding called committingTransactionLocksMap. We use these data structures to store information required for the wound wait deadlock resolution algorithm,  the lock lease killer and the validation of transactions. 
@@ -191,16 +199,12 @@ else:
 
 \subsection{Optimistic Concurrency Control}
 
-\subsection{Initialization}
+\subsection{Pseudo-Paxos and Pseudo-Byzantine Agreement}
 
-\subsection{Pseudo Paxos vs Pseudo Byzantine Agreement}
+Our original intention for experimentation with Tribune was to integrate an open source Paxos and Byzantine Agreement package into the system, but in the final iteration of development we decided to simulate consensus algorithms instead. Although a variety of Paxos (and Raft \cite{ongaro_search_2014} ) implementations exist, we were unable to find a  Byzantine Agreement package. Even if we had found a project for the two algorithms, the full protocols would have features our Tribune implementation is unable to deal with. Specifically, our lock table makes the simplifying assumption that the leader does not change. Considering that Paxos leaders are long lived (10s) in Spanner, a permanent leader doesn't significantly impact the validity of our experimentation, but would leave a true Paxos/Raft library out of sync with Tribune. Instead, Tribune simulates the data replication and consensus work of Paxos and Byzantine agreement, a procedure we term Pseudo-Paxos and Pseudo-Byzantine Agreement.
 
-We had to deal first-hand with a non-obvious implementation detail that arises in the practical implementation of Paxos: out-of-date replicas. We took inspiration from Chubby's solution to the problem  \cite{chandra_paxos_2007} by using sequence numbers to catch a replica back up to the current state of the system when possible. It would be impractical to maintain a permanent map between paxos sequence numbers and changes to the database, so instead we truncate the log at a fixed distance in the past. If a replica is further behind than the end of the log, it asks for a snapshot of the current state of the system from the leader, and achieves up-to-date status.
-  
-\textbf{COMMENT HOW WE MAKE AN ASSUMPTION ABOUT THE LEADER NOT CHANGING}  
-  
-Also, we considered using Raft \cite{ongaro_search_2014} as an alternative to Paxos
-We implement the 
+As part of consensus simulation, we had to deal first-hand with a non-obvious implementation detail that arises in the practical implementation of Paxos: out-of-date replicas. We took inspiration from Chubby's solution to the problem  \cite{chandra_paxos_2007} by using sequence numbers to catch a replica back up to the current state of the system when possible. It would be impractical to maintain a permanent map between paxos sequence numbers and changes to the database, so instead we truncate the log at a fixed distance in the past. If a replica is further behind than the end of the log, it asks for a snapshot of the current state of the system from the leader, and achieves up-to-date status.
+
 
 \subsection{Remote Method Invocation}
 
@@ -262,6 +266,7 @@ The commit percent is much higher for this experiment than for the high conflict
 
 \subsection{Hot Spot Reads}
 Our last benchmarking consists of many clients trying to read values that already exist in data storage.  We are interested to know what will happen when there are many reads for a few memory addresses and no writes at all except during initialization. This idea for this kind of benchmark came from the common case on media websites like Youtube, Google Play, or Spotify where millions of people watch or listen to (but don't write)  a specific memory location at the same time. Ideally, reads in this scenario should have minimal performance impact towards each other since reads alone cannot cause a transaction to abort. 
+
 In the test scenario, an initalization client writes data to one specifically memory address, then the rest of the clients simultaneously read from that memory address once the first client is done. Like the Bank experiment, the simulation started with ten as the number of concurrent clients and iterated up to one hundred clients by intervals of ten. The result is shown in Figure ~\ref{3-time} on a log scale graph to spread out the three runs near each other on the bottom. The running times are so similar, the log scale doesn't make much of a difference to differentiate them. The Locking Byzantine agreement configuration is an order of magnitude slower than the others because it must perform substantially higher Note that the commit percent graph is omitted for this trial because 100\% of transactions committed successfully.
 
 \begin{figure}[!b]

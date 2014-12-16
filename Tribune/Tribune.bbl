@@ -1,5 +1,11 @@
 \begin{thebibliography}{10}
 
+\bibitem{adya_efficient_1995}
+A.~Adya, R.~Gruber, B.~Liskov, and U.~Maheshwari.
+\newblock Efficient optimistic concurrency control using loosely synchronized
+  clocks.
+\newblock {\em {ACM} {SIGMOD} Record}, 24(2):23--34, 1995.
+
 \bibitem{baker_megastore:_2011}
 J.~Baker, C.~Bond, J.~C. Corbett, J.~J. Furman, A.~Khorlin, J.~Larson, J.-M.
   Léon, Y.~Li, A.~Lloyd, and V.~Yushprakh.
