@@ -9,9 +9,21 @@
 \usepackage{listings}
 \usepackage{color}
 
+\usepackage{natbib}
+\setlength{\bibsep}{0.0pt}
+
+\usepackage{titling}
+\setlength{\droptitle}{-5em} 
+
+\usepackage{titlesec}
+\titlespacing*{\section}{0pt}{*2}{*2}
+\titlespacing*{\subsection}
+{0pt}{*2}{*2}
+
 \definecolor{dkgreen}{rgb}{0,0.6,0}
 \definecolor{gray}{rgb}{0.5,0.5,0.5}
 \definecolor{mauve}{rgb}{0.58,0,0.82}
+
 
 \lstset{frame=tb,
   language=Java,
@@ -317,12 +329,11 @@ In the test scenario, an initalization client writes data to one specifically me
 
 Spanner-style semantics concerning time are most certainly not the only option for a CAAPI in the GDP. PTIDES \cite{zou_execution_2009} provides both an execution model and a simulation environment for time-aware computation. Rather than dealing with transactions, PTIDES determines the execution of atomic events and enforces that sensor-to-actuator deadlines are met. As an advantage of tight time synchronization and atomic events, PTIDES can define a deterministic time-ordered merge between two input streams by simply waiting out the clock uncertainty before writing. This policy guarantees no future event could be timestamped further in the past than the written value.
 
-Reconsidering our implementation choices now the project is complete, 
-\textbf{THREADS ARE EVIL}
-\textbf{Finish this section!}
+Reconsidering our implementation choices now the project is complete, Java and RMI may not be the best language and communication system for Tribune. C would be considerably faster in some of the computationally expensive bottlenecks such as the lock table. RMI gives a strange programming model and has a lot of computational overhead in it's operation. The biggest implementation challenges we faced had to do with strange interactions with threads arising out of RMI, which is no surprise considering that threads intrinsically convolute the model of computation \cite{lee_problem_2006}. In the future we will look into alternative message-based IPC. 
 
 \section{Conclusion}
 
+We present Tribune, a CAAPI for the GDP that enforces strong semantics on the behavior of a multi-writer log. Tribune uses precise clock synchronization to establish external consistency. Data may be replicated in geographically disperse locations, increasing the odds that useful values are physically near their client machines. When it comes to concurrency control, Tribune exhibits better performance in some applications with Locking and better in others with Optimistic transactions. Our experiments show the combination of Locking and Byzantine Agreement to be a particularly slow choice, motivating the use of Optimistic concurrency control when Byzantine Agreement is desired. 
 
 
 \section{Acknowledgements}

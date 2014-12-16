@@ -61,6 +61,11 @@ L.~Lamport, R.~Shostak, and M.~Pease.
 \newblock {\em {ACM} Transactions on Programming Languages and Systems
   ({TOPLAS})}, 4(3):382--401, 1982.
 
+\bibitem{lee_problem_2006}
+E.~A. Lee.
+\newblock The problem with threads.
+\newblock {\em Computer}, 39(5):33--42, 2006.
+
 \bibitem{lee_terraswarm_2012}
 E.~A. Lee, J.~D. Kubiatowicz, J.~M. Rabaey, A.~L. Sangiovanni-Vincentelli,
   S.~A. Seshia, J.~Wawrzynek, D.~Blaauw, P.~Dutta, K.~Fu, and C.~Guestrin.
