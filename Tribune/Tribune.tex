@@ -173,6 +173,8 @@ Also, we use committingTransactionLocksMap to "lock" the locks held by a committ
 
 For better explanation, the psudo-code for wound wait algorithm is specified below.
 \begin{lstlisting}
+define incoming transaction to be the oldest transaction among all transactions waiting to acquire lock of a specific key
+
 if incoming transaction does not have an entry in transactionBirthdateMap: return abort status
 else:
 	If lock is free:
@@ -187,7 +189,7 @@ else:
 		else if current lock holder belongs to a committing transaction:
 			incoming transaction waits
 		else removes lockMap and transactionBirthdateMap entries of current lock holder and incoming transaction acquires the lock
-    else if incoming transaction request a write lock and all current lock holders are reads:
+    else if incoming transaction requests a write lock and all current lock holders are reads:
 		if any of the current lock holders belong to a committing transaction:
 			incoming transaction waits
       else if any of the current lock holders who still have entries in the transactionBirthdateMap is older than the incoming transaction:
@@ -195,7 +197,9 @@ else:
 		else removes lockMap and transactionBirthdateMap entries of all current lock holders and incoming transaction acquires the lock
 
 \end{lstlisting}
+Here is the psudo-code, we omit a small yet important detail for the last case(incoming transaction requests a write lock and all current lock holders are reads). Since responders only acquire read locks for their locally buffered writes, they need to "upgrade" their read locks to writes locks for the buffered writes before they attempt to commit. These upgrades would fall into the last case classfied by our branch conditions. We need to make sure if all other current lock holders are younger than the upgrading transaction and thus an upgrade is valid, the transaction birthdate entry for the upgrading transaction is not removed during the removal of lockMap and transactionBirthdateMap entries of killed lock holders.
 
+Now we would like to elaborate on the details of how "acquiring a lock" is implemented. We implement a RMI call named "getReplicaLock" which would either return abort status if the calling transaction is already aborted by lock manager or put it self in waitingTransactionMap and block until acquiring the requested lock. We implement a container class called LockAndCondition which consists of information about a lock lease, a field to hold either expiration time of 
 
 \subsection{Optimistic Concurrency Control}
 
