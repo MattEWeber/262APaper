@@ -174,17 +174,34 @@ Our team drastically underestimated the problem of initializing Tribune, but we 
 Tribune's solution uses the remote registry described in the previous section to address this issue. The first step of initialization is to clear the remote registry. If we enforce the invariant that a service only register itself in the remote registry when it is fully initialized and ready to service requests, other components can poll the remote registry in initialization to check their dependencies. Fortunately, Tribune's dependency graph is acyclic because Replicas can always register with no dependencies. From that starting point, the leader replica can initialize (being cognizant of the fact it is already registered as a Replica), which allows Responders to begin. Finally when the appropriate Responder is registered, a Client application can begin requesting the Responder to perform its transactions.
 
 \subsection{Strict Two-Phase Locking}
-In our first design of the system, we implement a lock manager to enforce strict two-phase locking in one Paxos group scenario. The lock manager keeps track of three data structures: a map from integer keys to the current lock holder(s) called lockMap, a map from the transaction IDs to their birthdates called transactionBirthdateMap and a a map from interger keys to all transactions waiting to get the lock for the key called waitingTransactionMap. We use these data structures to store information required for the wound wait deadlock resolution algorithm,  the lock lease killer and the validation of transactions. 
+In our first design of the system, we implement a lock manager to enforce strict two-phase locking in one Paxos group scenario. The lock manager keeps track of four data structures: a map from integer keys to the current lock holder(s) called lockMap, a map from transaction IDs to their birthdates called transactionBirthdateMap, a map from interger keys to all transactions waiting to get the lock for the key called waitingTransactionMap and a map from committing transaction IDs to the locks they are holding called committingTransactionLocksMap. We use these data structures to store information required for the wound wait deadlock resolution algorithm,  the lock lease killer and the validation of transactions. 
 
-As mentioned above, the lock manager has three major responsibilies: prevents any deadlock in acquiring locks, kills existing lock leases that already expired and validates the locks of a transaction trying to commit. Validation of locks goes through all locks held by the transaction intending to commit and checks that the locks of the correct access mode are still present in the lockMap and have not expired. The lock lease killer goes through the lockMap at regular interval to kill already expired lock leases and wake up the waiting transaction(s) get the lock for a specific key. The most complicated part  of lock table is the implementation of wound wait algorithm. For better explanation, the psudo-code for wound wait algorithm is specified below:
+As mentioned above, the lock manager has three major responsibilies: prevents any deadlock in acquiring locks, kills existing lock leases that already expired and validates the locks of a transaction trying to commit. Validation of locks goes through all locks held by the transaction intending to commit and checks that the locks of the correct access mode are still present in the lockMap and have not expired. The lock lease killer goes through the lockMap at regular interval to kill already expired lock leases and wake up the waiting transaction(s) get the lock for a specific key. The most complicated part  of lock manager is the implementation of wound wait algorithm. We exploit a small optimization trick in our implementation by using transactionBirthdateMap to free up locks which are held by already dead transactions. The rationale is if there is no entry contained in transactionBirthdateMap for a specific transaction which holds a lock in lockMap, the specific transaction must already be aborted by the lock manager. The entry in the lockMap for the specific transaction is stale, so a waiting transaction on the same key could safely get the lock it needs. To keep this invariant, if a running transaction loses its ownership of any of its already acquired locks, it would be considered as aborted by lock manager and its entry in transactionBirthdateMap would be removed.
+
+Also, we use committingTransactionLocksMap to "lock" the locks held by a committing transaction in the lockMap, so they will not be killed by wound wait algorithm or lock lease killer during the committing of a transaction.
+
+For better explanation, the psudo-code for wound wait algorithm is specified below.
 \begin{lstlisting}
-If lock is free:
-	incoming transaction acquires the lock
-if incoming transaction requests a read lock and all current lock holders are reads:
-	incoming transaction acquires the lock	
-if incoming transaction requests a read lock and current lock holder is a write:
-	if current lock holder is older: incoming transaction waits
-	else kill the current lock holder and incoming transaction acquires the lock
+if incoming transaction does not have an entry in transactionBirthdateMap: return abort status
+else:
+	If lock is free:
+		incoming transaction acquires the lock
+	else if incoming transaction requests a read lock and all current lock holders are reads:
+		incoming transaction acquires the lock	
+	else if incoming transaction requests a read or write lock and current lock holder is a write:
+		if current lock holder does not have an entry in transactionBirthdateMap: 
+			incoming transaction acquires the lock
+		else if current lock holder is older: 
+			incoming transaction waits
+		else if current lock holder belongs to a committing transaction:
+			incoming transaction waits
+		else removes lockMap and transactionBirthdateMap entries of current lock holder and incoming transaction acquires the lock
+    else if incoming transaction request a write lock and all current lock holders are reads:
+		if any of the current lock holders belong to a committing transaction:
+			incoming transaction waits
+      else if any of the current lock holders who still have entries in the transactionBirthdateMap is older than the incoming transaction:
+			incoming transaction waits
+		else removes lockMap and transactionBirthdateMap entries of all current lock holders and incoming transaction acquires the lock
 
 \end{lstlisting}
 
